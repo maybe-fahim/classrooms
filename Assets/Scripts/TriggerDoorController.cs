@@ -9,6 +9,8 @@ public class TriggerDoorController : MonoBehaviour
     [SerializeField] private bool openTrigger = false;
     [SerializeField] private bool closeTrigger = false;
 
+    [SerializeField] private GameObject targetObject; // Public reference to the target object
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -16,15 +18,13 @@ public class TriggerDoorController : MonoBehaviour
             if (openTrigger)
             {
                 myDoor.Play("DoorOpen", 0, 0.0f);
-                
-            }
+                gameObject.SetActive(false);
 
-            else if (closeTrigger)
-            {
-                myDoor.Play("DoorClose", 0, 0.0f);
-         
+                if (targetObject != null)
+                {
+                    targetObject.GetComponent<BoxCollider>().enabled = false;
+                }
             }
         }
     }
-
 }
