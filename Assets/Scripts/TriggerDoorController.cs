@@ -5,25 +5,18 @@ using UnityEngine;
 public class TriggerDoorController : MonoBehaviour
 {
     [SerializeField] private Animator myDoor = null;
-
-    [SerializeField] private bool openTrigger = false;
-    [SerializeField] private bool closeTrigger = false;
-
-    [SerializeField] private GameObject targetObject; // Public reference to the target object
+    [SerializeField] private GameObject targetObject;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (openTrigger)
-            {
-                myDoor.Play("DoorOpen", 0, 0.0f);
-                gameObject.SetActive(false);
+            myDoor.Play("DoorOpen", 0, 0.0f);
+            gameObject.SetActive(false);
 
-                if (targetObject != null)
-                {
-                    targetObject.GetComponent<BoxCollider>().enabled = false;
-                }
+            if (targetObject != null)
+            {
+                targetObject.GetComponent<BoxCollider>().enabled = false;
             }
         }
     }
