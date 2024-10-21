@@ -6,6 +6,9 @@ public class LeverDoor : MonoBehaviour
     private bool leverFlicked = false;  // Track if the lever has been flicked
     private Collider doorCollider;
 
+    [SerializeField] private Animator leverAnimator = null;
+    [SerializeField] private GameObject leverHinge;
+
     // Check if the lever has already been flicked
     public bool IsLeverFlicked()
     {
@@ -18,6 +21,8 @@ public class LeverDoor : MonoBehaviour
         // Change lever state
         leverFlicked = true;
         Debug.Log("Lever has been flicked!");
+
+        leverAnimator.Play("OpenLever", 0, 0.0f);
 
         // Activate the door's collider
         if (door != null)
