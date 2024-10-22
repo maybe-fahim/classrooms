@@ -35,6 +35,11 @@ public class Interaction : MonoBehaviour
 
     private void Interact(InputAction.CallbackContext obj)
     {
+        // If the player is already holding an item, do nothing
+        if (inHandItem != null)
+        {
+            return;
+        }
         if(hit.collider != null)
         {
             Debug.Log(hit.collider.name);
