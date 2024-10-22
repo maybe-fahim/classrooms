@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 6180204724804125084}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.86601615, y: -0.20947671, z: -1.4789169}
+  m_LocalPosition: {x: -0.86601615, y: -0.20947671, z: -0.61}
   m_LocalScale: {x: 1.5, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,6 +312,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDoor: {fileID: 8580507634881075019}
-  openTrigger: 1
-  closeTrigger: 0
   targetObject: {fileID: 3072595051922825238}
