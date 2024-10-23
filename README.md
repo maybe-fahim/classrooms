@@ -25,3 +25,8 @@ Include a clear description of what you’ve done, any issues fixed, and instruc
 We will be using GitHub projects as our project management tool, use it to see any assigned tasks, create new tasks or raise any issues. Move a completed task to the completed column once done.
 
 You can access GitHub projects for this repository on the bar at the top.
+
+## Playing the game (as of prototype)
+Players can walk using WASD, crouch using L-CTRL and interact with certain objects using E (a pop-up box will appear if it is interactable). The player can look around using their mouse.
+Pick-up objects can also be picked up by pressing E, and then dropped by pressing Q.
+Doors will open automatically by walking near them (no button input is required), of course they may not open immediately if the room has a puzzle or requirement before leaving the room!
