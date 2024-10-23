@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; // Assign your enemy prefab in the Inspector
-    public Transform player; // Reference to the player's Transform
-    public float spawnDelay = 10f; // Time to wait before spawning an enemy
-    private bool enemySpawned = false; // Flag to check if an enemy has been spawned
+    public GameObject enemyPrefab;
+    public Transform player;
+    public float spawnDelay = 10f;
+    public float spawnCooldown = 5f;
+    private bool enemySpawned = false;
+    private float lastSpawnTime;
 
     private void Start()
     {
-        // Start the spawn check coroutine
         StartCoroutine(CheckAndSpawnEnemy());
     }
 
@@ -22,43 +23,37 @@ public class EnemySpawner : MonoBehaviour
         {
             if (enemySpawned)
             {
-                // Wait for the enemy to be removed
                 yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Enemy") == null);
-                enemySpawned = false; // Reset the flag after the enemy is removed
+                enemySpawned = false;
+                lastSpawnTime = Time.time;
             }
 
-            // Check if the player has moved
             if (PlayerHasMoved())
             {
-                idleTime = 0f; // Reset the idle time if the player moved
+                idleTime = 0f;
             }
             else
             {
-                idleTime += Time.deltaTime; // Increase idle time
+                idleTime += Time.deltaTime;
             }
 
-            // If the player has been idle for the spawn delay, attempt to spawn an enemy
-            if (idleTime >= spawnDelay && !enemySpawned)
+            if (idleTime >= spawnDelay && !enemySpawned && Time.time - lastSpawnTime >= spawnCooldown)
             {
                 SpawnEnemy();
-                enemySpawned = true; // Set the flag to prevent additional spawns
+                enemySpawned = true;
             }
 
-            yield return null; // Wait for the next frame
+            yield return null;
         }
     }
 
     private bool PlayerHasMoved()
     {
-        // You can implement your logic to determine if the player has moved
-        // For example, checking if the player’s position has changed significantly
-        // Here’s a simple way to check for movement:
         return player.GetComponent<Rigidbody>().velocity.magnitude > 0.1f;
     }
 
     private void SpawnEnemy()
     {
-        // Find the closest spawner to the player
         Transform closestSpawner = FindClosestSpawner();
 
         if (closestSpawner != null)
