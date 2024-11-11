@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 move;
     private CharacterController controller;
 
+
     // Reference to the camera
     public Camera playerCamera;
 
@@ -74,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the movement direction relative to the camera
         Vector3 movement = (cameraForward * move.y + cameraRight * move.x);
 
+        
         // Move the player using the CharacterController
         controller.Move(movement * moveSpeed * Time.deltaTime);
     }
@@ -97,4 +99,5 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = originalScale; // Restore the player's original size
         }
     }
+
 }
