@@ -137,20 +137,7 @@ public class Interaction : MonoBehaviour
 
 
         
-        /*
-        if (inHandItem != null)
-        {
-            inHandItem.transform.SetParent(null);
-            inHandItem.transform.localScale = originalScale;
-            inHandItem = null;
-            Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-            
-            if (rb != null)
-            {
-                rb.isKinematic = false; // Re-enable physics when dropped
-            }
-        }
-        */
+       
     }
 
     private void Update()
