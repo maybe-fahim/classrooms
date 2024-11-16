@@ -14,12 +14,12 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Access the player's health component and reduce health
-            Health playerHealth = other.GetComponent<Health>();
+            HealthManager php = other.GetComponent<HealthManager>();
 
-            if (playerHealth != null)
+            if (php != null)
             {
                 // Reduce the player's health
-                playerHealth.TakeDamage(damageAmount);
+                php.TakeDamage(damageAmount);
 
                 // Destroy the enemy game object
                 Destroy(gameObject);
