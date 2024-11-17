@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
 
     // Reference to the camera
     public Camera playerCamera;
+    public CameraShake cameraShake;
+
+    // Gravity and vertical velocity
+    private float gravity = -9.81f;
+    private float verticalVelocity = 0f;
 
     // Crouch-related variables
     private bool isCrouching = false;
@@ -60,6 +65,19 @@ public class PlayerMovement : MonoBehaviour
         // Get input for movement (WASD or joystick)
         move = controls.Player.Move.ReadValue<Vector2>();
 
+        // Check if player is moving
+        bool isMoving = move != Vector2.zero;
+
+        // Trigger camera shake based on movement state
+        if (isMoving)
+        {
+            cameraShake.StartShake();  // Start shake when moving
+        }
+        else
+        {
+            cameraShake.StopShake();   // Stop shake when idle
+        }
+
         // Get the forward and right directions from the camera
         Vector3 cameraForward = playerCamera.transform.forward;
         Vector3 cameraRight = playerCamera.transform.right;
@@ -75,7 +93,21 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the movement direction relative to the camera
         Vector3 movement = (cameraForward * move.y + cameraRight * move.x);
 
-        
+        // Apply gravity
+        if (controller.isGrounded)
+        {
+            // Reset vertical velocity if grounded
+            verticalVelocity = 0f;
+        }
+        else
+        {
+            // Apply gravity over time if not grounded
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        // Add the vertical velocity to the movement vector
+        movement.y = verticalVelocity;
+
         // Move the player using the CharacterController
         controller.Move(movement * moveSpeed * Time.deltaTime);
     }
