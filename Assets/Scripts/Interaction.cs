@@ -60,7 +60,14 @@ public class Interaction : MonoBehaviour
             // Check if player hit a pickable item
             if (hit.collider.GetComponent<ItemPickable>())
             {
-                PickUpItem();
+                if (hotbar.inventoryList.Count < 5)
+                {
+                    PickUpItem();
+                }
+                else
+                {
+                    Debug.Log("Inventory is full!");
+                }
             }
             // Check if player hit a lever
             else if (hit.collider.GetComponent<LeverDoor>())
@@ -219,7 +226,11 @@ public class Interaction : MonoBehaviour
         // If the hit object is an item, show pickup UI
         if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>())
         {
-            pickUpUI.SetActive(true);
+            if (hotbar.inventoryList.Count < 5)
+            {
+                pickUpUI.SetActive(true);
+            }
+            
         }
     }
 }
