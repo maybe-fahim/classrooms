@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Green
   m_EditorClassIdentifier: 
   item_type: 1
-  item_sprite: {fileID: 21300000, guid: cab71af7f16cdd549a7c75108de9b41c, type: 3}
+  item_sprite: {fileID: -739213416, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}

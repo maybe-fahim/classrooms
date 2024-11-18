@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   item_type: 2
-  item_sprite: {fileID: 21300000, guid: 0a9295a02a349694681130a58b94cd61, type: 3}
+  item_sprite: {fileID: 477379157, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}

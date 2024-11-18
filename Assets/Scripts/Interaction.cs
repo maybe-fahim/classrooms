@@ -44,7 +44,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         interactionInput.action.performed += Interact;
-        dropInput.action.performed += Drop;
+        //dropInput.action.performed += Drop;
     }
 
     private void Interact(InputAction.CallbackContext obj)
@@ -60,7 +60,14 @@ public class Interaction : MonoBehaviour
             // Check if player hit a pickable item
             if (hit.collider.GetComponent<ItemPickable>())
             {
-                PickUpItem();
+                if (hotbar.inventoryList.Count < 5)
+                {
+                    PickUpItem();
+                }
+                else
+                {
+                    Debug.Log("Inventory is full!");
+                }
             }
             // Check if player hit a lever
             else if (hit.collider.GetComponent<LeverDoor>())
@@ -110,7 +117,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void Drop(InputAction.CallbackContext obj)
+    /*private void Drop(InputAction.CallbackContext obj)
     {
         if (hotbar.inventoryList.Count > 0)
         {
@@ -137,24 +144,12 @@ public class Interaction : MonoBehaviour
 
 
         
-        /*
-        if (inHandItem != null)
-        {
-            inHandItem.transform.SetParent(null);
-            inHandItem.transform.localScale = originalScale;
-            inHandItem = null;
-            Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-            
-            if (rb != null)
-            {
-                rb.isKinematic = false; // Re-enable physics when dropped
-            }
-        }
-        */
-    }
+       
+    }*/
 
-    private void Update()
+    private void FixedUpdate()
     {
+
         
 
         // If an object was previously highlighted, remove the highlight
@@ -170,7 +165,6 @@ public class Interaction : MonoBehaviour
         {
             return;
         }
-
         // Raycast from camera to detect objects within range
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickablelayerMask))
         {
@@ -232,7 +226,11 @@ public class Interaction : MonoBehaviour
         // If the hit object is an item, show pickup UI
         if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>())
         {
-            pickUpUI.SetActive(true);
+            if (hotbar.inventoryList.Count < 5)
+            {
+                pickUpUI.SetActive(true);
+            }
+            
         }
     }
 }
