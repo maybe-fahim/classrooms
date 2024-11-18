@@ -806,7 +806,7 @@ MonoBehaviour:
   - {fileID: 426512477773703849, guid: ce32ce374635a6b49bf9e302a980b1a2, type: 3}
   - {fileID: 8568186395558613595, guid: 9b99381658b937f429fc8a66c918e465, type: 3}
   - {fileID: 7922389537595207088, guid: 1e2c2a199bfc30841aa2b2dc809e004c, type: 3}
-  numberOfIntermediateRooms: 25
+  numberOfIntermediateRooms: 15
   randomSeed: 0
   itemsToSpawn:
   - {fileID: 4127281278173983272, guid: 1a8116682511c084d8b0b24a938db1fc, type: 3}
@@ -814,6 +814,7 @@ MonoBehaviour:
   - {fileID: 5020802907098939035, guid: 9f685a47a6f73684cb74707817733fed, type: 3}
   - {fileID: 2314040124447984432, guid: f5428660af0680c4ebba72be1d240fd3, type: 3}
   itemSpawnChance: 0.8
+  playerPrefab: {fileID: 236341405282215830, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
 --- !u!4 &1559323932
 Transform:
   m_ObjectHideFlags: 0

@@ -10,15 +10,19 @@ public class RoomGen : MonoBehaviour
     public int randomSeed = 0; // Default seed is 0, meaning it will be randomized
     public List<GameObject> itemsToSpawn; // List of possible items to spawn
     public float itemSpawnChance = 0.5f; // Chance that an item spawns at each ItemAnchor
+    public GameObject playerPrefab; // Player prefab to spawn in the start room
+
+    private List<GameObject> generatedRooms = new List<GameObject>();
+    private int currentRoomIndex = 0;
 
     private void Start()
     {
-        GenerateRooms();
+        GenerateInitialRooms();
+        SpawnPlayer();
     }
 
-    private void GenerateRooms()
+    private void GenerateInitialRooms()
     {
-        // Set the random seed for repeatable generation or use a truly random seed
         if (randomSeed == 0)
         {
             randomSeed = Random.Range(int.MinValue, int.MaxValue);
@@ -31,114 +35,183 @@ public class RoomGen : MonoBehaviour
 
         Random.InitState(randomSeed);  // Initialize random with the seed
 
-        // List to keep track of generated rooms
-        List<GameObject> generatedRooms = new List<GameObject>();
-
-        // Instantiate and place the start room
         GameObject currentRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity);
         generatedRooms.Add(currentRoom);
 
-        // Get the last room's exit point for the initial room
         Transform lastExitAnchor = currentRoom.transform.Find("ExitAnchor");
 
-        // Generate intermediate rooms
-        for (int i = 0; i < numberOfIntermediateRooms; i++)
+        for (int i = 0; i < 3; i++) // Generate first 3 intermediate rooms
         {
-            // Randomly pick an intermediate room prefab
-            GameObject nextRoomPrefab = intermediateRoomPrefabs[Random.Range(0, intermediateRoomPrefabs.Count)];
+            GameObject nextRoom = GenerateRoom(lastExitAnchor);
+            lastExitAnchor = nextRoom.transform.Find("ExitAnchor");
+        }
+    }
 
-            // Instantiate the next room
-            GameObject nextRoom = Instantiate(nextRoomPrefab);
-            generatedRooms.Add(nextRoom);
+    private GameObject GenerateRoom(Transform lastExitAnchor)
+    {
+        GameObject nextRoomPrefab = intermediateRoomPrefabs[Random.Range(0, intermediateRoomPrefabs.Count)];
+        GameObject nextRoom = Instantiate(nextRoomPrefab);
+        generatedRooms.Add(nextRoom);
 
-            // Align the entrance of the next room with the last room's exit
-            Transform entranceAnchor = nextRoom.transform.Find("EntranceAnchor");
-            if (entranceAnchor != null && lastExitAnchor != null)
+        Transform entranceAnchor = nextRoom.transform.Find("EntranceAnchor");
+        if (entranceAnchor != null && lastExitAnchor != null)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lastExitAnchor.forward, lastExitAnchor.up);
+            Quaternion entranceRotation = Quaternion.LookRotation(entranceAnchor.forward, entranceAnchor.up);
+            Quaternion rotationOffset = targetRotation * Quaternion.Inverse(entranceRotation);
+
+            nextRoom.transform.rotation = rotationOffset * nextRoom.transform.rotation;
+
+            Vector3 entranceWorldPosition = nextRoom.transform.TransformPoint(entranceAnchor.localPosition);
+            Vector3 positionOffset = lastExitAnchor.position - entranceWorldPosition;
+            nextRoom.transform.position += positionOffset;
+
+            // Attach trigger logic to the OpenDoorTrigger
+            Transform doorTrigger = nextRoom.transform.Find("DoorModel2/OpenDoorTrigger");
+            if (doorTrigger != null)
             {
-                // Calculate rotation that aligns the entrance with the last exit
-                Quaternion targetRotation = Quaternion.LookRotation(lastExitAnchor.forward, lastExitAnchor.up);
-                Quaternion entranceRotation = Quaternion.LookRotation(entranceAnchor.forward, entranceAnchor.up);
-                Quaternion rotationOffset = targetRotation * Quaternion.Inverse(entranceRotation);
+                Collider triggerCollider = doorTrigger.GetComponent<Collider>();
+                if (triggerCollider != null)
+                {
+                    triggerCollider.isTrigger = true;
+                    triggerCollider.gameObject.AddComponent<OpenDoorTrigger>().Initialize(this, generatedRooms.Count - 1);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("EntranceAnchor or ExitAnchor not found on room prefab.");
+        }
 
-                nextRoom.transform.rotation = rotationOffset * nextRoom.transform.rotation;
+        TrySpawnItemsInRoom(nextRoom);
+        return nextRoom;
+    }
 
-                // Recalculate the position after rotation to align the entrance with the exit
-                Vector3 entranceWorldPosition = nextRoom.transform.TransformPoint(entranceAnchor.localPosition);
-                Vector3 positionOffset = lastExitAnchor.position - entranceWorldPosition;
-                nextRoom.transform.position += positionOffset;
-
-                // Update the last exit anchor to the current room's exit anchor for the next iteration
-                lastExitAnchor = nextRoom.transform.Find("ExitAnchor");
+    private void SpawnPlayer()
+    {
+        if (playerPrefab != null && generatedRooms.Count > 0)
+        {
+            GameObject startRoom = generatedRooms[0];
+            Transform playerSpawnPoint = startRoom.transform.Find("PlayerSpawnPoint");
+            if (playerSpawnPoint != null)
+            {
+                Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
             }
             else
             {
-                Debug.LogWarning("EntranceAnchor or ExitAnchor not found on room prefab.");
+                Debug.LogWarning("PlayerSpawnPoint not found in the start room.");
             }
+        }
+    }
 
-            // Handle Item Spawning in the intermediate room
-            TrySpawnItemsInRoom(nextRoom);
+    public void OnPlayerEnterRoom(int roomIndex)
+    {
+        currentRoomIndex = roomIndex;
+
+        // Generate the next intermediate room if applicable
+        if (roomIndex + 3 < numberOfIntermediateRooms + 1 && roomIndex + 3 >= generatedRooms.Count)
+        {
+            Transform lastExitAnchor = generatedRooms[generatedRooms.Count - 1].transform.Find("ExitAnchor");
+            GenerateRoom(lastExitAnchor);
         }
 
-        // Instantiate and align the end room
+        // Check if we need to generate the end room when approaching the final room
+        if (roomIndex == numberOfIntermediateRooms - 1 && !generatedRooms.Contains(endRoomPrefab))
+        {
+            Transform lastExitAnchor = generatedRooms[generatedRooms.Count - 1].transform.Find("ExitAnchor");
+            GenerateEndRoom(lastExitAnchor);
+        }
+
+        // Delete old rooms to manage memory
+        if (currentRoomIndex >= 5)
+        {
+            int roomToDeleteIndex = currentRoomIndex - 5;
+            if (roomToDeleteIndex >= 0 && roomToDeleteIndex < generatedRooms.Count)
+            {
+                if (generatedRooms[roomToDeleteIndex] != null)
+                {
+                    Destroy(generatedRooms[roomToDeleteIndex]);
+                    generatedRooms[roomToDeleteIndex] = null;
+                }
+            }
+        }
+    }
+
+    private void GenerateEndRoom(Transform lastExitAnchor)
+    {
+        if (lastExitAnchor == null)
+        {
+            Debug.LogWarning("No exit anchor found for the last intermediate room.");
+            return;
+        }
+
         GameObject endRoom = Instantiate(endRoomPrefab);
         generatedRooms.Add(endRoom);
 
-        Transform endEntranceAnchor = endRoom.transform.Find("EntranceAnchor");
-        if (endEntranceAnchor != null && lastExitAnchor != null)
+        Transform entranceAnchor = endRoom.transform.Find("EntranceAnchor");
+        if (entranceAnchor != null)
         {
-            // Calculate rotation that aligns the entrance of the end room with the last exit
-            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up);
-            Quaternion entranceRotation = Quaternion.LookRotation(endEntranceAnchor.forward, endEntranceAnchor.up);
+            // The issue with rotation was here, adjusting how it's applied
+            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up);  // Reverse the direction
+            Quaternion entranceRotation = Quaternion.LookRotation(entranceAnchor.forward, entranceAnchor.up);
             Quaternion rotationOffset = targetRotation * Quaternion.Inverse(entranceRotation);
 
             endRoom.transform.rotation = rotationOffset * endRoom.transform.rotation;
 
-            // Adjust position after rotation to match the last exit position
-            Vector3 adjustedEntrancePosition = endRoom.transform.TransformPoint(endEntranceAnchor.localPosition);
-            Vector3 positionOffset = lastExitAnchor.position - adjustedEntrancePosition;
+            Vector3 entranceWorldPosition = endRoom.transform.TransformPoint(entranceAnchor.localPosition);
+            Vector3 positionOffset = lastExitAnchor.position - entranceWorldPosition;
             endRoom.transform.position += positionOffset;
+
+            Debug.Log("End room generated and aligned successfully.");
         }
         else
         {
             Debug.LogWarning("EntranceAnchor not found on end room prefab.");
         }
-
-        // Handle item spawning for the end room
-        TrySpawnItemsInRoom(endRoom);
-
-        Debug.Log("Room generation complete.");
     }
 
-    // Function to randomly spawn items at all ItemAnchors in a room
     private void TrySpawnItemsInRoom(GameObject room)
     {
-        // Find all ItemAnchors in the room
         Transform[] itemAnchors = room.GetComponentsInChildren<Transform>();
         List<Transform> itemAnchorList = new List<Transform>();
 
-        // Filter for ItemAnchors based on name or specific component
         foreach (var anchor in itemAnchors)
         {
-            if (anchor.name.Contains("ItemAnchor"))  // Assuming anchors are named "ItemAnchor"
+            if (anchor.name.Contains("ItemAnchor"))
             {
                 itemAnchorList.Add(anchor);
             }
         }
 
-        // Spawn items at each ItemAnchor with the chance
         foreach (Transform itemAnchor in itemAnchorList)
         {
-            // Check if an item should spawn
-            if (Random.Range(0f, 1f) <= itemSpawnChance)  // Based on the spawn chance
+            if (Random.Range(0f, 1f) <= itemSpawnChance)
             {
-                // Pick a random item from the list and instantiate it at the ItemAnchor
                 GameObject randomItem = itemsToSpawn[Random.Range(0, itemsToSpawn.Count)];
                 Instantiate(randomItem, itemAnchor.position, itemAnchor.rotation, room.transform);
             }
-            else
-            {
-                Debug.Log($"No item spawned at {itemAnchor.name}.");
-            }
+        }
+    }
+}
+
+// This class handles the OpenDoorTrigger logic directly within the script.
+public class OpenDoorTrigger : MonoBehaviour
+{
+    private RoomGen roomGen;
+    private int roomIndex;
+
+    public void Initialize(RoomGen gen, int index)
+    {
+        roomGen = gen;
+        roomIndex = index;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            roomGen.OnPlayerEnterRoom(roomIndex);
+            Destroy(this.gameObject); // Delete the trigger once activated
         }
     }
 }
