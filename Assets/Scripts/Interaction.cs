@@ -44,7 +44,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         interactionInput.action.performed += Interact;
-        dropInput.action.performed += Drop;
+        //dropInput.action.performed += Drop;
     }
 
     private void Interact(InputAction.CallbackContext obj)
@@ -117,7 +117,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void Drop(InputAction.CallbackContext obj)
+    /*private void Drop(InputAction.CallbackContext obj)
     {
         if (hotbar.inventoryList.Count > 0)
         {
@@ -145,10 +145,11 @@ public class Interaction : MonoBehaviour
 
         
        
-    }
+    }*/
 
-    private void Update()
+    private void FixedUpdate()
     {
+
         
 
         // If an object was previously highlighted, remove the highlight
@@ -164,7 +165,6 @@ public class Interaction : MonoBehaviour
         {
             return;
         }
-
         // Raycast from camera to detect objects within range
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickablelayerMask))
         {
