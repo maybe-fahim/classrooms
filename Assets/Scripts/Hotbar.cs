@@ -17,6 +17,10 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject Item3;
     [SerializeField] GameObject Item4;
     [SerializeField] GameObject Item5;
+    [SerializeField] GameObject Item6;
+    [SerializeField] GameObject Item7;
+    
+
 
     [Header("Item prefabs")]
     [SerializeField] GameObject Item1Prefab;
@@ -24,6 +28,8 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject Item3Prefab;
     [SerializeField] GameObject Item4Prefab;
     [SerializeField] GameObject Item5Prefab;
+    [SerializeField] GameObject Item6Prefab;
+    [SerializeField] GameObject Item7Prefab;
 
     
     public Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>() { };
@@ -41,12 +47,16 @@ public class Hotbar : MonoBehaviour
         itemSetActive.Add(itemType.Orange, Item3);
         itemSetActive.Add(itemType.Pink, Item4);
         itemSetActive.Add(itemType.White, Item5);
+        itemSetActive.Add(itemType.Torch, Item6);
+        itemSetActive.Add(itemType.Key, Item7);
 
         itemInstantiate.Add(itemType.Black, Item1Prefab);
         itemInstantiate.Add(itemType.Green, Item2Prefab);
         itemInstantiate.Add(itemType.Orange, Item3Prefab);
         itemInstantiate.Add(itemType.Pink, Item4Prefab);
         itemInstantiate.Add(itemType.White, Item5Prefab);
+        itemInstantiate.Add(itemType.Torch, Item6Prefab);
+        itemInstantiate.Add(itemType.Key, Item7Prefab);
 
         NewItemSelected();
     }
@@ -65,6 +75,8 @@ public class Hotbar : MonoBehaviour
         Item3.SetActive(false);
         Item4.SetActive(false);
         Item5.SetActive(false);
+        Item6.SetActive(false);
+        Item7.SetActive(false);
 
         GameObject selectedItemGameobject = itemSetActive[inventoryList[selectedItem]];
         selectedItemGameobject.SetActive(true);

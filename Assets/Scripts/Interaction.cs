@@ -15,6 +15,12 @@ public class Interaction : MonoBehaviour
     [SerializeField]
     private GameObject interactUI;
     [SerializeField]
+    private Image cursor;
+    [SerializeField]
+    private Sprite hand;
+    [SerializeField]
+    private Sprite normal;
+    [SerializeField]
     [Min(1)]
     private float hitRange = 5f;
 
@@ -83,6 +89,8 @@ public class Interaction : MonoBehaviour
         IPickable item = hit.collider.GetComponent<IPickable>();
         if (item != null)
         {
+            pickUpUI.SetActive(false);
+            cursor.sprite = normal;
             itemType itemTypeToAdd = hit.collider.GetComponent<ItemPickable>().itemScriptableObject.item_type;
             
             // Add the item type to the hotbar's inventory list
@@ -158,6 +166,7 @@ public class Interaction : MonoBehaviour
             hit.collider.GetComponent<Highlight>()?.ToggleHighlight(false);
             pickUpUI.SetActive(false);
             interactUI.SetActive(false);
+            cursor.sprite = normal;
         }
 
         // Don't cast ray when holding an item
@@ -229,6 +238,7 @@ public class Interaction : MonoBehaviour
             if (hotbar.inventoryList.Count < 5)
             {
                 pickUpUI.SetActive(true);
+                cursor.sprite = hand;
             }
             
         }
