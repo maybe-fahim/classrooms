@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls controls;
-    private float moveSpeed = 5f;
+    
     private Vector2 move;
     private CharacterController controller;
 
@@ -15,13 +15,19 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCamera;
     public CameraShake cameraShake;
 
+    // Movement variables
+    public float acceleration = 10f;
+    public float drag = 0.9f;
+    private float maxSpeed = 5f;
+    private Vector3 velocity = Vector3.zero; // Current velocity
+
     // Gravity and vertical velocity
     private float gravity = -9.81f;
     private float verticalVelocity = 0f;
 
     // Crouch-related variables
     private bool isCrouching = false;
-    private float originalMoveSpeed;
+    private float originalMaxSpeed;
     private Vector3 originalScale;
     private float crouchMoveSpeed = 2.5f; // Slower movement when crouched
     private Vector3 crouchScale = new Vector3(0.5f, 0.5f, 0.5f); // Crouched size
@@ -32,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         // Save the original movement speed and player scale (initial size)
-        originalMoveSpeed = moveSpeed;
+        originalMaxSpeed = maxSpeed;
         originalScale = transform.localScale; // Save the actual starting scale
         
     }
@@ -93,6 +99,21 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the movement direction relative to the camera
         Vector3 movement = (cameraForward * move.y + cameraRight * move.x);
 
+        // Apply acceleration
+        if (movement != Vector3.zero)
+        {
+            velocity += movement * acceleration * Time.deltaTime;
+        }
+        
+        // Apply drag
+        velocity *= drag;
+
+        // Clamp velocity to max speed
+        if (velocity.magnitude > maxSpeed)
+        {
+            velocity = velocity.normalized * maxSpeed;
+        }
+
         // Apply gravity
         if (controller.isGrounded)
         {
@@ -105,11 +126,12 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
 
-        // Add the vertical velocity to the movement vector
-        movement.y = verticalVelocity;
+       // Add gravity to the movement
+        velocity.y = verticalVelocity;
 
-        // Move the player using the CharacterController
-        controller.Move(movement * moveSpeed * Time.deltaTime);
+        // Move the player
+        controller.Move(velocity * Time.deltaTime);
+
     }
 
     private void StartCrouch()
@@ -117,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isCrouching)
         {
             isCrouching = true;
-            moveSpeed = crouchMoveSpeed; // Reduce movement speed
+            maxSpeed = crouchMoveSpeed; // Reduce movement speed
             transform.localScale = crouchScale; // Shrink the player's size
         }
     }
@@ -127,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
         if (isCrouching)
         {
             isCrouching = false;
-            moveSpeed = originalMoveSpeed; // Restore original movement speed
+            maxSpeed = originalMaxSpeed; // Restore original movement speed
             transform.localScale = originalScale; // Restore the player's original size
         }
     }

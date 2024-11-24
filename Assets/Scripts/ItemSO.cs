@@ -16,5 +16,7 @@ public enum itemType
     Green,
     Orange,
     Pink,
-    White 
+    White,
+    Torch,
+    Key 
 }
