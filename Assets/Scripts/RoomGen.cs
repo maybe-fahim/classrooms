@@ -10,7 +10,6 @@ public class RoomGen : MonoBehaviour
     public int randomSeed = 0; // Default seed is 0, meaning it will be randomized
     public List<GameObject> itemsToSpawn; // List of possible items to spawn
     public float itemSpawnChance = 0.5f; // Chance that an item spawns at each ItemAnchor
-    public GameObject playerPrefab; // Player prefab to spawn in the start room
 
     private List<GameObject> generatedRooms = new List<GameObject>();
     private int currentRoomIndex = 0;
@@ -33,7 +32,7 @@ public class RoomGen : MonoBehaviour
             Debug.Log("Using set seed: " + randomSeed);
         }
 
-        Random.InitState(randomSeed);  // Initialize random with the seed
+        Random.InitState(randomSeed); // Initialize random with the seed
 
         GameObject currentRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity);
         generatedRooms.Add(currentRoom);
@@ -74,7 +73,7 @@ public class RoomGen : MonoBehaviour
                 if (triggerCollider != null)
                 {
                     triggerCollider.isTrigger = true;
-                    triggerCollider.gameObject.AddComponent<OpenDoorTrigger>().Initialize(this, generatedRooms.Count - 1);
+                    doorTrigger.gameObject.AddComponent<OpenDoorTrigger>().Initialize(this, generatedRooms.Count - 1);
                 }
             }
         }
@@ -89,17 +88,36 @@ public class RoomGen : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        if (playerPrefab != null && generatedRooms.Count > 0)
+        // Find the player object in the scene
+        GameObject player = GameObject.FindWithTag("Player");
+
+        if (player != null && generatedRooms.Count > 0)
         {
             GameObject startRoom = generatedRooms[0];
             Transform playerSpawnPoint = startRoom.transform.Find("PlayerSpawnPoint");
+
             if (playerSpawnPoint != null)
             {
-                Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+                // Teleport the player to the spawn point
+                player.transform.position = playerSpawnPoint.position;
+                player.transform.rotation = playerSpawnPoint.rotation;
+
+                Debug.Log("Player teleported to the start room's spawn point.");
             }
             else
             {
                 Debug.LogWarning("PlayerSpawnPoint not found in the start room.");
+            }
+        }
+        else
+        {
+            if (player == null)
+            {
+                Debug.LogWarning("Player object not found in the scene. Ensure it is tagged as 'Player'.");
+            }
+            if (generatedRooms.Count == 0)
+            {
+                Debug.LogWarning("No generated rooms available to locate the spawn point.");
             }
         }
     }
@@ -151,8 +169,7 @@ public class RoomGen : MonoBehaviour
         Transform entranceAnchor = endRoom.transform.Find("EntranceAnchor");
         if (entranceAnchor != null)
         {
-            // The issue with rotation was here, adjusting how it's applied
-            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up);  // Reverse the direction
+            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up); // Reverse the direction
             Quaternion entranceRotation = Quaternion.LookRotation(entranceAnchor.forward, entranceAnchor.up);
             Quaternion rotationOffset = targetRotation * Quaternion.Inverse(entranceRotation);
 
