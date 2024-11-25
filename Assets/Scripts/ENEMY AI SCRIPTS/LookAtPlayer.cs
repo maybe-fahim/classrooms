@@ -9,6 +9,7 @@ public class CameraLookAt : MonoBehaviour
 
     void Start()
     {
+        GameObject player = GameObject.FindWithTag("Player");
         if (sphere == null || player == null)
         {
             Debug.LogError("Missing references! Please assign the sphere and player.");
