@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3445352999058701222}
   - component: {fileID: 5810441757156954994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmallKey_Rusty
-  m_TagString: Untagged
+  m_TagString: canPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
