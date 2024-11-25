@@ -116,6 +116,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""add86b22-c2ae-4b98-8d3d-1ed63580bf1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Hotbar5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fdb2268-773c-4d45-a584-9b2ad476511e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -290,6 +310,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Hotbar3 = m_Player.FindAction("Hotbar3", throwIfNotFound: true);
         m_Player_Hotbar4 = m_Player.FindAction("Hotbar4", throwIfNotFound: true);
         m_Player_Hotbar5 = m_Player.FindAction("Hotbar5", throwIfNotFound: true);
+        m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -361,6 +382,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hotbar3;
     private readonly InputAction m_Player_Hotbar4;
     private readonly InputAction m_Player_Hotbar5;
+    private readonly InputAction m_Player_Use;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -375,6 +397,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Hotbar3 => m_Wrapper.m_Player_Hotbar3;
         public InputAction @Hotbar4 => m_Wrapper.m_Player_Hotbar4;
         public InputAction @Hotbar5 => m_Wrapper.m_Player_Hotbar5;
+        public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -414,6 +437,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Hotbar5.started += instance.OnHotbar5;
             @Hotbar5.performed += instance.OnHotbar5;
             @Hotbar5.canceled += instance.OnHotbar5;
+            @Use.started += instance.OnUse;
+            @Use.performed += instance.OnUse;
+            @Use.canceled += instance.OnUse;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -448,6 +474,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Hotbar5.started -= instance.OnHotbar5;
             @Hotbar5.performed -= instance.OnHotbar5;
             @Hotbar5.canceled -= instance.OnHotbar5;
+            @Use.started -= instance.OnUse;
+            @Use.performed -= instance.OnUse;
+            @Use.canceled -= instance.OnUse;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -477,5 +506,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnHotbar3(InputAction.CallbackContext context);
         void OnHotbar4(InputAction.CallbackContext context);
         void OnHotbar5(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
     }
 }

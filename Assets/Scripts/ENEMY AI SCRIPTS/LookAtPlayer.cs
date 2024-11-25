@@ -1,46 +1,32 @@
 using UnityEngine;
 
-public class LookAtPlayer : MonoBehaviour
+public class CameraLookAt : MonoBehaviour
 {
-    public Transform player;       // Reference to the Player GameObject
-    public Transform holder;       // Reference to the Holder GameObject
-    public Transform camera;       // Reference to the Camera GameObject
-    public Vector3 rotationOffset; // Offset for correcting the camera's rotation
-    public Vector3 lookAtOffset;   // Offset to focus on the player's eyes
-    public float rotationSpeed = 5f; // Speed of smoothing rotation
+    public Transform sphere; // The rotating sphere
+    public Transform player; // The player object
+    public float rotationSmoothness = 5f; // Smoothness of the sphere's rotation
+    public Vector3 lookAtOffset = new Vector3(0f, 1.5f, 0f); // Offset to target the player's head
 
-    void Update()
+    void Start()
     {
-        if (player != null && holder != null && camera != null)
+        if (sphere == null || player == null)
         {
-            // Calculate direction to the player, ignoring Y-axis for Holder rotation
-            Vector3 direction = new Vector3(
-                player.position.x - holder.position.x,
-                0,
-                player.position.z - holder.position.z
-            );
+            Debug.LogError("Missing references! Please assign the sphere and player.");
+            return;
+        }
+    }
 
-            if (direction.sqrMagnitude > 0.001f)
-            {
-                // Smoothly rotate the Holder on XZ plane
-                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-                holder.rotation = Quaternion.Slerp(
-                    holder.rotation,
-                    Quaternion.Euler(0, targetRotation.eulerAngles.y, 0),
-                    Time.deltaTime * rotationSpeed
-                );
+    void LateUpdate()
+    {
+        if (sphere != null && player != null)
+        {
+            // Calculate the direction to the player's position with an offset
+            Vector3 targetPosition = player.position + lookAtOffset;
+            Vector3 directionToPlayer = targetPosition - sphere.position;
 
-                // Calculate the look-at target and smoothly rotate the camera
-                Vector3 targetLookAt = player.position + lookAtOffset;
-
-                // Look directly at the target
-                Quaternion cameraTargetRotation = Quaternion.LookRotation(targetLookAt - camera.position);
-                camera.rotation = Quaternion.Slerp(
-                    camera.rotation,
-                    cameraTargetRotation * Quaternion.Euler(rotationOffset),
-                    Time.deltaTime * rotationSpeed
-                );
-            }
+            // Smoothly rotate the sphere to look at the player
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            sphere.rotation = Quaternion.Slerp(sphere.rotation, targetRotation, rotationSmoothness * Time.deltaTime);
         }
     }
 }
