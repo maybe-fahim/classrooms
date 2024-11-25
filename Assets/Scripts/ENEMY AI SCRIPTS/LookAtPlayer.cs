@@ -9,9 +9,24 @@ public class CameraLookAt : MonoBehaviour
 
     void Start()
     {
+         // Automatically find the player GameObject in the scene by its tag
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Player GameObject with tag 'Player' not found! Please ensure the player is tagged correctly.");
+        }
+
+        if (sphere == null)
+        {
+            Debug.LogError("Missing reference to the sphere! Please assign the sphere.");
+        }
         if (sphere == null || player == null)
         {
-            Debug.LogError("Missing references! Please assign the sphere and player.");
+            Debug.LogError("Missing references! Please assign the sphere and player.");                
             return;
         }
     }
