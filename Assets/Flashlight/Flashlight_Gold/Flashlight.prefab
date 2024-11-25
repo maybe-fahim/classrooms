@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 23035564008676742}
   - component: {fileID: 95363276851437522}
   - component: {fileID: 3428833627508194160}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Flashlight
-  m_TagString: Untagged
+  m_TagString: canPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
