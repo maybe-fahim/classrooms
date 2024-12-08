@@ -6,6 +6,8 @@ public class HealthManager : MonoBehaviour
 {
     public Image healthBar;
     public float healthAmount = 100f;
+    public GameObject player;
+    public GameObject deathScreen; 
 
     // Start is called before the first frame update
     void Start()
@@ -13,7 +15,15 @@ public class HealthManager : MonoBehaviour
         
     }
 
-    
+    void Update()
+    {
+        if (healthAmount <= 0)
+        {
+            player.GetComponent<PlayerMovement>().enabled = false;
+            deathScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
     public void TakeDamage(float amount)
     {
         healthAmount -= amount;

@@ -50,7 +50,6 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         interactionInput.action.performed += Interact;
-        //dropInput.action.performed += Drop;
     }
 
     private void Interact(InputAction.CallbackContext obj)

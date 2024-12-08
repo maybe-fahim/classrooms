@@ -8,6 +8,7 @@ public class Flashlight : MonoBehaviour
     public GameObject flashlightSource;
     [SerializeField]
     private InputActionReference useInput;
+    public float batteryLife = 100;
     void Start()
     {
         useInput.action.performed += Use;
@@ -15,6 +16,16 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
+        if (flashlightSource.activeSelf)
+        {
+            batteryLife-= 1 * Time.deltaTime;
+        }
+        if (batteryLife <= 0)
+        {
+            flashlightSource.SetActive(false);
+        }
+
+
 
         
     }
