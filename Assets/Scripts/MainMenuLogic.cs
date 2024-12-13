@@ -27,7 +27,7 @@ public class MainMenuLogic : MonoBehaviour
         loading.GetComponent<Canvas>().enabled = true;
         mainMenu.GetComponent<Canvas>().enabled = false;
         buttonSound.Play();
-        SceneManager.LoadScene("Yusuf2");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void SettingsButton()
