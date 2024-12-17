@@ -801,12 +801,17 @@ MonoBehaviour:
   startRoomPrefab: {fileID: 3257594574180206535, guid: 4270104c6fdd251408ebb5dfec5f0638, type: 3}
   endRoomPrefab: {fileID: 2257012153786745138, guid: 3a697a72eebeccb489229a152f9fa469, type: 3}
   intermediateRoomPrefabs:
-  - {fileID: 184129329183946411, guid: 4e2a855910b696347ae7bd7d912ed92e, type: 3}
-  - {fileID: 3266059777798487536, guid: 778dc3da075661b4793a466941549117, type: 3}
-  - {fileID: 426512477773703849, guid: ce32ce374635a6b49bf9e302a980b1a2, type: 3}
-  - {fileID: 8568186395558613595, guid: 9b99381658b937f429fc8a66c918e465, type: 3}
-  - {fileID: 7922389537595207088, guid: 1e2c2a199bfc30841aa2b2dc809e004c, type: 3}
-  numberOfIntermediateRooms: 15
+  - {fileID: 5944570792003526229, guid: 7410aae7a9e0c4e40a36182910e93a20, type: 3}
+  - {fileID: 8736672929275142943, guid: 298ca474cfb15d849ac1c085ff267602, type: 3}
+  - {fileID: 2677332845615634866, guid: 04b69ac7169627341bb444122d886e76, type: 3}
+  - {fileID: 4639685848873539730, guid: 3184fe9bf43b661418d72761a1a74f28, type: 3}
+  - {fileID: 8566719778979298553, guid: 481110e0aea72f44d8b79e9ef199b6d9, type: 3}
+  - {fileID: 6208863965766943780, guid: 463944c67b9d2e84397f921bb5d36e1e, type: 3}
+  - {fileID: 6228399644814595598, guid: 89cec8115240bd240987637e2f8d5956, type: 3}
+  - {fileID: 4020806436196007894, guid: 060b34df4dae87548bb52766b85ff6f6, type: 3}
+  - {fileID: 3188742332626441920, guid: 97ecdc5c7e78ee2428f6a23565368f93, type: 3}
+  - {fileID: 1518826350739361565, guid: cb25c5901c63eb34cb880019c1700cdc, type: 3}
+  numberOfIntermediateRooms: 30
   randomSeed: 0
   itemsToSpawn:
   - {fileID: 3445352999058701145, guid: 05e314c9e067138498f7c1e1f6aca83d, type: 3}

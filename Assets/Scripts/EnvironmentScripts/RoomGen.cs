@@ -66,7 +66,7 @@ public class RoomGen : MonoBehaviour
             nextRoom.transform.position += positionOffset;
 
             // Attach trigger logic to the OpenDoorTrigger
-            Transform doorTrigger = nextRoom.transform.Find("DoorModel2/OpenDoorTrigger");
+            Transform doorTrigger = nextRoom.transform.Find("EntranceDoor/OpenDoorTrigger");
             if (doorTrigger != null)
             {
                 Collider triggerCollider = doorTrigger.GetComponent<Collider>();
