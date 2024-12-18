@@ -82,6 +82,26 @@ public class Hotbar : MonoBehaviour
         selectedItemGameobject.SetActive(true);
     }
 
+    public void RemoveItemFromHotbar(itemType itemToRemove)
+    {
+        if (inventoryList.Contains(itemToRemove))
+        {
+            inventoryList.Remove(itemToRemove);
+
+            // Adjust selected item if necessary
+            if (selectedItem >= inventoryList.Count)
+            {
+                selectedItem = Mathf.Max(0, inventoryList.Count - 1);
+            }
+
+            NewItemSelected();
+        }
+        else
+        {
+            Debug.LogWarning($"Item {itemToRemove} not found in the hotbar inventory.");
+        }
+    }
+
     private void Hotbar1Pressed(InputAction.CallbackContext obj)
     {
         Debug.Log("Hotbar 1 pressed");
