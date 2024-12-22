@@ -5,17 +5,24 @@ public class RoomGen : MonoBehaviour
 {
     public GameObject startRoomPrefab;
     public GameObject endRoomPrefab;
+    public GameObject boss1RoomPrefab; // Boss 1 Room prefab
     public List<GameObject> intermediateRoomPrefabs;
+    public List<GameObject> intermediateTurnRoomPrefabs;
     public int numberOfIntermediateRooms = 5;
     public int randomSeed = 0; // Default seed is 0, meaning it will be randomized
-    public List<GameObject> itemsToSpawn; // List of possible items to spawn
-    public float itemSpawnChance = 0.5f; // Chance that an item spawns at each ItemAnchor
 
     private List<GameObject> generatedRooms = new List<GameObject>();
-    private int currentRoomIndex = 0;
+    private int currentRoomIndex = 0; // Tracks currently generated room index
+    private int lastTurnRoomIndex = -4; // Ensure the first turn room can be generated
+    private bool boss1RoomGenerated = false; // Tracks if Boss 1 Room has been placed
+    private int bossRoomPosition; // The calculated position of the Boss 1 Room
+    private int totalIntermediateRoomsGenerated = 0; // Tracks all intermediate rooms, including initial ones
 
     private void Start()
     {
+        // Calculate the Boss 1 Room position (1-based index), accounting for odd/even cases
+        bossRoomPosition = Mathf.FloorToInt(numberOfIntermediateRooms / 2f);
+
         GenerateInitialRooms();
         SpawnPlayer();
     }
@@ -39,7 +46,8 @@ public class RoomGen : MonoBehaviour
 
         Transform lastExitAnchor = currentRoom.transform.Find("ExitAnchor");
 
-        for (int i = 0; i < 3; i++) // Generate first 3 intermediate rooms
+        // Generate the first 3 rooms
+        for (int i = 0; i < 3; i++)
         {
             GameObject nextRoom = GenerateRoom(lastExitAnchor);
             lastExitAnchor = nextRoom.transform.Find("ExitAnchor");
@@ -48,7 +56,36 @@ public class RoomGen : MonoBehaviour
 
     private GameObject GenerateRoom(Transform lastExitAnchor)
     {
-        GameObject nextRoomPrefab = intermediateRoomPrefabs[Random.Range(0, intermediateRoomPrefabs.Count)];
+        GameObject nextRoomPrefab;
+
+        // Check if the Boss 1 Room should be placed
+        if (!boss1RoomGenerated && totalIntermediateRoomsGenerated == bossRoomPosition)
+        {
+            nextRoomPrefab = boss1RoomPrefab;
+            boss1RoomGenerated = true;
+        }
+        else
+        {
+            // Determine if a turn room should be generated
+            if (currentRoomIndex - lastTurnRoomIndex >= 3 && intermediateTurnRoomPrefabs.Count > 0)
+            {
+                float turnRoomChance = 0.5f;
+                if (Random.Range(0f, 1f) < turnRoomChance)
+                {
+                    nextRoomPrefab = intermediateTurnRoomPrefabs[Random.Range(0, intermediateTurnRoomPrefabs.Count)];
+                    lastTurnRoomIndex = currentRoomIndex;
+                }
+                else
+                {
+                    nextRoomPrefab = intermediateRoomPrefabs[Random.Range(0, intermediateRoomPrefabs.Count)];
+                }
+            }
+            else
+            {
+                nextRoomPrefab = intermediateRoomPrefabs[Random.Range(0, intermediateRoomPrefabs.Count)];
+            }
+        }
+
         GameObject nextRoom = Instantiate(nextRoomPrefab);
         generatedRooms.Add(nextRoom);
 
@@ -82,13 +119,13 @@ public class RoomGen : MonoBehaviour
             Debug.LogWarning("EntranceAnchor or ExitAnchor not found on room prefab.");
         }
 
-        TrySpawnItemsInRoom(nextRoom);
+        totalIntermediateRoomsGenerated++; // Increment the intermediate room count
+        currentRoomIndex++;
         return nextRoom;
     }
 
     private void SpawnPlayer()
     {
-        // Find the player object in the scene
         GameObject player = GameObject.FindWithTag("Player");
 
         if (player != null && generatedRooms.Count > 0)
@@ -98,10 +135,8 @@ public class RoomGen : MonoBehaviour
 
             if (playerSpawnPoint != null)
             {
-                // Teleport the player to the spawn point
                 player.transform.position = playerSpawnPoint.position;
                 player.transform.rotation = playerSpawnPoint.rotation;
-
                 Debug.Log("Player teleported to the start room's spawn point.");
             }
             else
@@ -111,14 +146,7 @@ public class RoomGen : MonoBehaviour
         }
         else
         {
-            if (player == null)
-            {
-                Debug.LogWarning("Player object not found in the scene. Ensure it is tagged as 'Player'.");
-            }
-            if (generatedRooms.Count == 0)
-            {
-                Debug.LogWarning("No generated rooms available to locate the spawn point.");
-            }
+            Debug.LogWarning("Player object not found in the scene or no rooms generated.");
         }
     }
 
@@ -133,7 +161,7 @@ public class RoomGen : MonoBehaviour
             GenerateRoom(lastExitAnchor);
         }
 
-        // Check if we need to generate the end room when approaching the final room
+        // Generate the end room when approaching the final room
         if (roomIndex == numberOfIntermediateRooms - 1 && !generatedRooms.Contains(endRoomPrefab))
         {
             Transform lastExitAnchor = generatedRooms[generatedRooms.Count - 1].transform.Find("ExitAnchor");
@@ -169,7 +197,7 @@ public class RoomGen : MonoBehaviour
         Transform entranceAnchor = endRoom.transform.Find("EntranceAnchor");
         if (entranceAnchor != null)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up); // Reverse the direction
+            Quaternion targetRotation = Quaternion.LookRotation(-lastExitAnchor.forward, lastExitAnchor.up);
             Quaternion entranceRotation = Quaternion.LookRotation(entranceAnchor.forward, entranceAnchor.up);
             Quaternion rotationOffset = targetRotation * Quaternion.Inverse(entranceRotation);
 
@@ -184,29 +212,6 @@ public class RoomGen : MonoBehaviour
         else
         {
             Debug.LogWarning("EntranceAnchor not found on end room prefab.");
-        }
-    }
-
-    private void TrySpawnItemsInRoom(GameObject room)
-    {
-        Transform[] itemAnchors = room.GetComponentsInChildren<Transform>();
-        List<Transform> itemAnchorList = new List<Transform>();
-
-        foreach (var anchor in itemAnchors)
-        {
-            if (anchor.name.Contains("ItemAnchor"))
-            {
-                itemAnchorList.Add(anchor);
-            }
-        }
-
-        foreach (Transform itemAnchor in itemAnchorList)
-        {
-            if (Random.Range(0f, 1f) <= itemSpawnChance)
-            {
-                GameObject randomItem = itemsToSpawn[Random.Range(0, itemsToSpawn.Count)];
-                Instantiate(randomItem, itemAnchor.position, itemAnchor.rotation, room.transform);
-            }
         }
     }
 }
