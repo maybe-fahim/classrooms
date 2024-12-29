@@ -91,13 +91,31 @@ public class Interaction : MonoBehaviour
             pickUpUI.SetActive(false);
             cursor.sprite = normal;
             itemType itemTypeToAdd = hit.collider.GetComponent<ItemPickable>().itemScriptableObject.item_type;
-            
+
+            // Check if the item is a flashlight
+            if (itemTypeToAdd == itemType.Torch)
+            {
+                // Check if the inventory already contains a flashlight
+                if (hotbar.inventoryList.Contains(itemType.Torch))
+                {
+                    Debug.Log("Flashlight already in inventory. Refilling battery life.");
+
+                    // Find the flashlight in the scene and refill its battery
+                    Flashlight flashlight = FindObjectOfType<Flashlight>();
+                    if (flashlight != null)
+                    {
+                        flashlight.batteryLife = 100; // Refill the battery
+                    }
+
+                    // Destroy the new flashlight being picked up since we don't add it to the inventory
+                    Destroy(hit.collider.gameObject);
+                    return;
+                }
+            }
+
             // Add the item type to the hotbar's inventory list
             hotbar.inventoryList.Add(itemTypeToAdd);
             item.PickItem();
-
-            
-            
         }
         
         
