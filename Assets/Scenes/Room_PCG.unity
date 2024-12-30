@@ -801,6 +801,7 @@ MonoBehaviour:
   startRoomPrefab: {fileID: 3257594574180206535, guid: 4270104c6fdd251408ebb5dfec5f0638, type: 3}
   endRoomPrefab: {fileID: 2257012153786745138, guid: 3a697a72eebeccb489229a152f9fa469, type: 3}
   boss1RoomPrefab: {fileID: 2862006905552331423, guid: f24052b24f0a61d4fa3f7c1391d14e90, type: 3}
+  shopRoomPrefab: {fileID: 933352795763280445, guid: 67686a26094887641b76fc0071368cc1, type: 3}
   intermediateRoomPrefabs:
   - {fileID: 5944570792003526229, guid: 7410aae7a9e0c4e40a36182910e93a20, type: 3}
   - {fileID: 8736672929275142943, guid: 298ca474cfb15d849ac1c085ff267602, type: 3}
@@ -820,13 +821,15 @@ MonoBehaviour:
   - {fileID: 3096414544712803946, guid: c77615f4de8dc724fa55e2c00e7c0659, type: 3}
   - {fileID: 8715323766048670821, guid: 5bc1f83ed3108bb48945424912c8475b, type: 3}
   - {fileID: 7582620209019404914, guid: e42b3b541b903b04581d9caad393f19c, type: 3}
+  - {fileID: 3976684882730810355, guid: 765849b67fe736c429abd85c06c2d1c6, type: 3}
+  - {fileID: 5342548806556016747, guid: 4d0218cad59256946bfc663ef08c7e38, type: 3}
   intermediateTurnRoomPrefabs:
   - {fileID: 2677332845615634866, guid: 04b69ac7169627341bb444122d886e76, type: 3}
   - {fileID: 4639685848873539730, guid: 3184fe9bf43b661418d72761a1a74f28, type: 3}
   - {fileID: 8566719778979298553, guid: 481110e0aea72f44d8b79e9ef199b6d9, type: 3}
   - {fileID: 193358033157267719, guid: a9da54bbdfd9dbd4e8d03e50aa869013, type: 3}
   - {fileID: 5653296024733525732, guid: a73ca34f195ad074e986defbc78cf0b9, type: 3}
-  numberOfIntermediateRooms: 50
+  numberOfIntermediateRooms: 16
   randomSeed: 0
 --- !u!4 &1559323932
 Transform:
