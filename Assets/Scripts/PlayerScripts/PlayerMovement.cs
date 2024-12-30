@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float originalMaxSpeed;
     private Vector3 originalScale;
     private float crouchMoveSpeed = 2.5f; // Slower movement when crouched
-    private Vector3 crouchScale = new Vector3(0.5f, 0.5f, 0.5f); // Crouched size
+    private Vector3 crouchScale = new Vector3(0.5f, 0.35f, 0.5f); // Crouched size
 
     void Awake()
     {
