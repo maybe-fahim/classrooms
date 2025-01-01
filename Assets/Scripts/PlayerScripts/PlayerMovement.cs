@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls controls;
-    
     private Vector2 move;
     private CharacterController controller;
 

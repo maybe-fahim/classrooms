@@ -23,6 +23,10 @@ public class HealthManager : MonoBehaviour
             deathScreen.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
+        if (healthAmount > 100)
+        {
+            healthAmount = 100;
+        }
     }
     public void TakeDamage(float amount)
     {

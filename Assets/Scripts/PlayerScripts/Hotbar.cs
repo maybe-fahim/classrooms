@@ -20,6 +20,8 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject Item6;
     [SerializeField] GameObject Item7;
     [SerializeField] GameObject Item8;
+    [SerializeField] GameObject Item9;
+    [SerializeField] GameObject Item10;
 
     [Header("Item prefabs")]
     [SerializeField] GameObject Item1Prefab;
@@ -30,6 +32,8 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject Item6Prefab;
     [SerializeField] GameObject Item7Prefab;
     [SerializeField] GameObject Item8Prefab;
+    [SerializeField] GameObject Item9Prefab;
+    [SerializeField] GameObject Item10Prefab;
 
     public Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>() { };
     public Dictionary<itemType, GameObject> itemInstantiate = new Dictionary<itemType, GameObject>() { };
@@ -53,6 +57,8 @@ public class Hotbar : MonoBehaviour
         itemSetActive.Add(itemType.Torch, Item6);
         itemSetActive.Add(itemType.Key, Item7);
         itemSetActive.Add(itemType.Drink, Item8);
+        itemSetActive.Add(itemType.Water, Item9);
+        itemSetActive.Add(itemType.Bandage, Item10);
 
         itemInstantiate.Add(itemType.Black, Item1Prefab);
         itemInstantiate.Add(itemType.Green, Item2Prefab);
@@ -62,6 +68,8 @@ public class Hotbar : MonoBehaviour
         itemInstantiate.Add(itemType.Torch, Item6Prefab);
         itemInstantiate.Add(itemType.Key, Item7Prefab);
         itemInstantiate.Add(itemType.Drink, Item8Prefab);
+        itemInstantiate.Add(itemType.Water, Item9Prefab);
+        itemInstantiate.Add(itemType.Bandage, Item10Prefab);
 
         NewItemSelected();
     }
@@ -101,6 +109,8 @@ public class Hotbar : MonoBehaviour
         Item6.SetActive(false);
         Item7.SetActive(false);
         Item8.SetActive(false);
+        Item9.SetActive(false);
+        Item10.SetActive(false);
 
         GameObject selectedItemGameobject = itemSetActive[inventoryList[selectedItem]];
         selectedItemGameobject.SetActive(true);
