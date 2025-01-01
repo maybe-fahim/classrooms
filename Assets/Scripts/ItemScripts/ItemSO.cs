@@ -18,5 +18,8 @@ public enum itemType
     Pink,
     White,
     Torch,
-    Key 
+    Key,
+    Drink,
+    Water,
+    Bandage
 }
