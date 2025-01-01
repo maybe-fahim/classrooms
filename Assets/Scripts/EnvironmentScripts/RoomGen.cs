@@ -6,6 +6,7 @@ public class RoomGen : MonoBehaviour
     public GameObject startRoomPrefab;
     public GameObject endRoomPrefab;
     public GameObject boss1RoomPrefab; // Boss 1 Room prefab
+    public GameObject shopRoomPrefab; // Shop Room prefab
     public List<GameObject> intermediateRoomPrefabs;
     public List<GameObject> intermediateTurnRoomPrefabs;
     public int numberOfIntermediateRooms = 5;
@@ -15,6 +16,7 @@ public class RoomGen : MonoBehaviour
     private int currentRoomIndex = 0; // Tracks currently generated room index
     private int lastTurnRoomIndex = -4; // Ensure the first turn room can be generated
     private bool boss1RoomGenerated = false; // Tracks if Boss 1 Room has been placed
+    private bool shopRoomGenerated = false; // Tracks if Shop Room has been placed
     private int bossRoomPosition; // The calculated position of the Boss 1 Room
     private int totalIntermediateRoomsGenerated = 0; // Tracks all intermediate rooms, including initial ones
 
@@ -63,6 +65,12 @@ public class RoomGen : MonoBehaviour
         {
             nextRoomPrefab = boss1RoomPrefab;
             boss1RoomGenerated = true;
+        }
+        else if (boss1RoomGenerated && !shopRoomGenerated)
+        {
+            // Place the shop room immediately after the boss 1 room
+            nextRoomPrefab = shopRoomPrefab;
+            shopRoomGenerated = true;
         }
         else
         {
@@ -153,6 +161,24 @@ public class RoomGen : MonoBehaviour
     public void OnPlayerEnterRoom(int roomIndex)
     {
         currentRoomIndex = roomIndex;
+
+        // Enable DoorBarrier in the room five behind
+        int barrierRoomIndex = roomIndex - 3; // Room whose barrier should be enabled
+        if (barrierRoomIndex >= 0 && barrierRoomIndex < generatedRooms.Count)
+        {
+            GameObject barrierRoom = generatedRooms[barrierRoomIndex];
+            if (barrierRoom != null)
+            {
+                Transform doorBarrier = barrierRoom.transform.Find("DoorBarrier");
+                if (doorBarrier != null)
+                {
+                    MeshRenderer meshRenderer = doorBarrier.GetComponent<MeshRenderer>();
+                    MeshCollider meshCollider = doorBarrier.GetComponent<MeshCollider>();
+                    if (meshRenderer != null) meshRenderer.enabled = true;
+                    if (meshCollider != null) meshCollider.enabled = true;
+                }
+            }
+        }
 
         // Generate the next intermediate room if applicable
         if (roomIndex + 3 < numberOfIntermediateRooms + 1 && roomIndex + 3 >= generatedRooms.Count)
