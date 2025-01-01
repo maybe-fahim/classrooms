@@ -14522,6 +14522,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2737346839855877658, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
+      propertyPath: overallSpawnChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737346839855877658, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
+      propertyPath: itemsToSpawn.Array.data[0].spawnChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737346839855877658, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
+      propertyPath: itemsToSpawn.Array.data[1].spawnChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737346839855877658, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
+      propertyPath: itemsToSpawn.Array.data[2].spawnChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737346839855877658, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
+      propertyPath: itemsToSpawn.Array.data[3].spawnChance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5801392621346817474, guid: 0f9760e4cf673ef44811c49e63b5414e, type: 3}
       propertyPath: m_Name
       value: ItemAnchor

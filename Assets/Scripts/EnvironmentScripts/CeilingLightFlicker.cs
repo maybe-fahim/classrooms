@@ -19,9 +19,10 @@ public class CeilingLightFlicker : MonoBehaviour
     private Material emissiveMaterial;
     private enum LightState { On, Flicker, Off }
     private LightState currentState;
-    private float nextFlickerTime;
+
+    private float nextFlickerTime; // When the next flicker will start
     private bool isFlickering = false;
-    private float flickerEndTime;
+    private float flickerEndTime; // When the current flicker ends
 
     void Start()
     {
@@ -37,6 +38,16 @@ public class CeilingLightFlicker : MonoBehaviour
         NormalizeProbabilities(); // Ensure probabilities sum to 1
         currentState = GetRandomState(); // Randomly decide the initial state
 
+        if (randomizeTiming)
+        {
+            // Randomize initial timing to ensure desynchronization
+            nextFlickerTime = Time.time + Random.Range(0f, timeBetweenFlickers);
+        }
+        else
+        {
+            ScheduleNextFlicker();
+        }
+
         // Initialize behavior based on state
         if (currentState == LightState.On)
         {
@@ -48,47 +59,53 @@ public class CeilingLightFlicker : MonoBehaviour
             SetLightsIntensity(0f); // Turn off
             SetEmissiveState(false);
         }
-        else if (currentState == LightState.Flicker)
-        {
-            ScheduleNextFlicker();
-        }
     }
 
     void Update()
     {
-        if (currentState == LightState.Flicker)
+        if (isFlickering)
         {
             HandleFlicker();
+        }
+        else
+        {
+            if (Time.time >= nextFlickerTime)
+            {
+                currentState = GetRandomState(); // Reevaluate the state randomly
+
+                if (currentState == LightState.Flicker)
+                {
+                    StartFlickering();
+                }
+                else if (currentState == LightState.On)
+                {
+                    SetLightsIntensity(normalIntensity);
+                    SetEmissiveState(true);
+                }
+                else if (currentState == LightState.Off)
+                {
+                    SetLightsIntensity(0f);
+                    SetEmissiveState(false);
+                }
+                ScheduleNextFlicker();
+            }
         }
     }
 
     private void HandleFlicker()
     {
-        if (isFlickering)
+        if (Time.time >= flickerEndTime)
         {
-            // If currently flickering, handle the flicker duration
-            if (Time.time >= flickerEndTime)
-            {
-                SetLightsIntensity(normalIntensity); // Return to normal
-                SetEmissiveState(true);
-                isFlickering = false;
-                ScheduleNextFlicker();
-            }
-            else
-            {
-                // Flicker between dim and bright states
-                bool isBright = Random.value > 0.5f;
-                SetLightsIntensity(isBright ? dimIntensity : normalIntensity);
-                SetEmissiveState(isBright);
-            }
+            SetLightsIntensity(normalIntensity); // Return to normal
+            SetEmissiveState(true);
+            isFlickering = false;
         }
         else
         {
-            // Check if it's time to start the next flicker
-            if (Time.time >= nextFlickerTime)
-            {
-                StartFlickering();
-            }
+            // Flicker between dim and bright states
+            bool isBright = Random.value > 0.5f;
+            SetLightsIntensity(isBright ? dimIntensity : normalIntensity);
+            SetEmissiveState(isBright);
         }
     }
 

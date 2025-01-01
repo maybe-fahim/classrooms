@@ -259,7 +259,6 @@ public class OpenDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             roomGen.OnPlayerEnterRoom(roomIndex);
-            Destroy(this.gameObject); // Delete the trigger once activated
         }
     }
 }
