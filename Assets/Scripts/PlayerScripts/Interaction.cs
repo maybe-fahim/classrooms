@@ -117,6 +117,13 @@ public class Interaction : MonoBehaviour
             hotbar.inventoryList.Add(itemTypeToAdd);
             item.PickItem();
         }
+        else if (hit.collider.name == "Homework")
+        {
+            pickUpUI.SetActive(false);
+            Debug.Log("Picked up " + hit.collider.name);
+            Destroy(hit.collider.gameObject);
+        }
+        
         
         
     }
@@ -142,35 +149,6 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    /*private void Drop(InputAction.CallbackContext obj)
-    {
-        if (hotbar.inventoryList.Count > 0)
-        {
-            // Determine the spawn point in front of the player
-            Vector3 spawnPosition = playerCameraTransform.position + playerCameraTransform.forward * 2f; // Adjust 2f as needed
-
-            // Cast a ray downwards from the spawn position to snap to the ground
-            RaycastHit groundHit;
-            if (Physics.Raycast(spawnPosition + Vector3.up * 2f, Vector3.down, out groundHit, 5f, pickablelayerMask))
-            {
-                spawnPosition = groundHit.point; // Adjust spawn position to the ground level
-            }
-
-            Instantiate(hotbar.itemInstantiate[hotbar.inventoryList[hotbar.selectedItem]], position: spawnPosition, new Quaternion());
-            hotbar.inventoryList.RemoveAt(hotbar.selectedItem);
-            
-            if(hotbar.selectedItem != 0)
-            {
-                hotbar.selectedItem-= 1;
-            }
-            hotbar.NewItemSelected();
-        }
-        
-
-
-        
-       
-    }*/
 
     private void FixedUpdate()
     {
@@ -250,7 +228,7 @@ public class Interaction : MonoBehaviour
         hit.collider.GetComponent<Highlight>()?.ToggleHighlight(true);
 
         // If the hit object is an item, show pickup UI
-        if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>())
+        if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>() || hit.collider.name == "Homework")
         {
             if (hotbar.inventoryList.Count < 5)
             {
