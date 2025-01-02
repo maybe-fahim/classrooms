@@ -21,5 +21,6 @@ public enum itemType
     Key,
     Drink,
     Water,
-    Bandage
+    Bandage,
+    Homework
 }

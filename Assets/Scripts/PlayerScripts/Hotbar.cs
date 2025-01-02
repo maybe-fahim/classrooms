@@ -60,6 +60,7 @@ public class Hotbar : MonoBehaviour
         itemSetActive.Add(itemType.Water, Item9);
         itemSetActive.Add(itemType.Bandage, Item10);
 
+
         itemInstantiate.Add(itemType.Black, Item1Prefab);
         itemInstantiate.Add(itemType.Green, Item2Prefab);
         itemInstantiate.Add(itemType.Orange, Item3Prefab);
@@ -70,6 +71,7 @@ public class Hotbar : MonoBehaviour
         itemInstantiate.Add(itemType.Drink, Item8Prefab);
         itemInstantiate.Add(itemType.Water, Item9Prefab);
         itemInstantiate.Add(itemType.Bandage, Item10Prefab);
+       
 
         NewItemSelected();
     }
@@ -111,6 +113,7 @@ public class Hotbar : MonoBehaviour
         Item8.SetActive(false);
         Item9.SetActive(false);
         Item10.SetActive(false);
+
 
         GameObject selectedItemGameobject = itemSetActive[inventoryList[selectedItem]];
         selectedItemGameobject.SetActive(true);

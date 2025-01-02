@@ -2,64 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TriggerDoorController : MonoBehaviour
 {
-    [Header("Door/Handle References")]
+    // references for animators and mesh coliders
     [SerializeField] private Animator myDoor = null;
+    [SerializeField] private GameObject targetObject;
     [SerializeField] private Animator myHandle = null;
-    [SerializeField] private GameObject targetObject = null;
+    private RoomCounter roomCounter; // Reference to the RoomCounter script
+    private TimeKeeper timeKeeper; // Reference to the TimeKeeper script
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource doorAudioSource;   // AudioSource component for the door
-    [SerializeField] private AudioClip doorOpenClip;        // Door-opening sound clip
-
-    private bool isTriggered = false; // Prevents multiple trigger activations
-
-    private void OnTriggerEnter(Collider other)
+    void Start()
     {
-        // Check if the object that entered is the player and ensure it hasn’t already triggered
-        if (other.CompareTag("Player") && !isTriggered)
+        // Find the RoomCounter in the scene
+        roomCounter = FindObjectOfType<RoomCounter>();
+        if (roomCounter == null)
         {
-            isTriggered = true; // Mark as triggered
+            Debug.LogError("RoomCounter not found in the scene.");
+        }
 
-            // Play the door animation
-            myDoor.Play("openDoor", 0, 0.0f);
-
-            // Play the handle animation
-            myHandle.Play("openDoorHandle", 0, 0.0f);
-
-            // Play the door-opening sound
-            PlayDoorSound();
-
-            // Disable the trigger's Box Collider instead of the whole GameObject
-            BoxCollider triggerCollider = GetComponent<BoxCollider>();
-            if (triggerCollider != null)
-            {
-                triggerCollider.enabled = false;
-            }
-
-            // Disable the target object's MeshCollider if assigned
-            if (targetObject != null)
-            {
-                MeshCollider mc = targetObject.GetComponent<MeshCollider>();
-                if (mc != null)
-                {
-                    mc.enabled = false;
-                }
-            }
+        // Find the TimeKeeper in the scene
+        timeKeeper = FindObjectOfType<TimeKeeper>();
+        if (timeKeeper == null)
+        {
+            Debug.LogError("TimeKeeper not found in the scene.");
         }
     }
 
-    private void PlayDoorSound()
+   
+    private void OnTriggerEnter(Collider other)
     {
-        // Check if AudioSource and Clip are properly assigned
-        if (doorAudioSource != null && doorOpenClip != null)
+        // Check if the object that entered the trigger has the tag "Player"
+        if (other.CompareTag("Player"))
         {
-            doorAudioSource.PlayOneShot(doorOpenClip);
-        }
-        else
-        {
-            Debug.LogWarning("DoorAudioSource or DoorOpenClip is not assigned!");
+            // Play the door opening animation
+            myDoor.Play("openDoor", 0, 0.0f);
+
+            // Play the handle turning animation
+            myHandle.Play("openDoorHandle", 0, 0.0f);
+
+             // Increment the room count
+            if (roomCounter != null)
+            {
+                roomCounter.roomCount = roomCounter.roomCount + 1;
+                Debug.Log("Room count incremented. Current count: " + roomCounter.roomCount);
+            }
+            else
+            {
+                Debug.LogError("RoomCounter is not assigned.");
+            }
+
+            if (timeKeeper != null)
+            {
+                timeKeeper.time = timeKeeper.time + 60; // Add 60 seconds to the timer
+            }
+
+            // Disable the open door trigger
+            gameObject.SetActive(false);
+
+            // disable its MeshCollider
+            if (targetObject != null)
+            {
+                targetObject.GetComponent<MeshCollider>().enabled = false;
+            }
         }
     }
 }

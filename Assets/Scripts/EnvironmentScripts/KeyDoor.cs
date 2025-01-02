@@ -17,11 +17,27 @@ public class KeyDoor : MonoBehaviour
     public GameObject noKeyUI;
     public GameObject useKeyUI;
     private bool playerHasKey = false;
+    private RoomCounter roomCounter; // Reference to the RoomCounter script
+    private TimeKeeper timeKeeper; // Reference to the TimeKeeper script
     
 
     private void Start()
     {
         interactionInput.action.performed += Interact;
+
+        // Find the RoomCounter in the scene
+        roomCounter = FindObjectOfType<RoomCounter>();
+        if (roomCounter == null)
+        {
+            Debug.LogError("RoomCounter not found in the scene.");
+        }
+
+        // Find the TimeKeeper in the scene
+        timeKeeper = FindObjectOfType<TimeKeeper>();
+        if (timeKeeper == null)
+        {
+            Debug.LogError("TimeKeeper not found in the scene.");
+        }
     }
 
     void Update()
@@ -99,6 +115,21 @@ public class KeyDoor : MonoBehaviour
             myHandle.Play("openDoorHandle", 0, 0.0f);
         }
 
+        // Increment the room count
+        if (roomCounter != null)
+        {
+            roomCounter.roomCount = roomCounter.roomCount + 1;
+            Debug.Log("Room count incremented. Current count: " + roomCounter.roomCount);
+        }
+        else
+        {
+            Debug.LogError("RoomCounter is not assigned.");
+        }
+
+        if (timeKeeper != null)
+        {
+            timeKeeper.time = timeKeeper.time + 60; // Add 60 seconds to the timer
+        }
 
         // Disable the MeshCollider on the target object
         if (targetObject != null)
@@ -120,6 +151,7 @@ public class KeyDoor : MonoBehaviour
         {
             Debug.LogError("Hotbar not found in the scene.");
         }
+
     }
 
 }
