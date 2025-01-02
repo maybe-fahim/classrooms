@@ -50,7 +50,7 @@ Light:
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -78,7 +78,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -150,9 +150,9 @@ MonoBehaviour:
   flickerDuration: 0.2
   timeBetweenFlickers: 4
   randomizeTiming: 1
-  probabilityOn: 0
-  probabilityFlicker: 1
-  probabilityOff: 0
+  probabilityOn: 0.2
+  probabilityFlicker: 0.75
+  probabilityOff: 0.05
 --- !u!1 &3496899024472238544
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ Light:
   m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -231,7 +231,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
