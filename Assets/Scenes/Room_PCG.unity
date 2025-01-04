@@ -896,7 +896,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27916
+  m_Name: pb_Mesh283536
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -2989,67 +2989,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 301}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &922433272
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 236341405282215830, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 236341405282215830, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 18.179117
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -11.013494
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8.706589
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.8711405
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.49103394
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 58.817
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156912650460038139, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 918df624bb9c24843b000e6c4b5d480f, type: 3}
 --- !u!1 &922889791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3251,7 +3190,7 @@ MonoBehaviour:
   chanceLightFlicker: 0.2
   chanceLightOff: 0.8
   enemyCameraSpawnRate: 0.442
-  numberOfIntermediateRooms: 100
+  numberOfIntermediateRooms: 8
   roomGen: {fileID: 1559323931}
 --- !u!1 &956451647
 GameObject:
@@ -5353,10 +5292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e50f0422dbb934fbdd262c932329ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomPrefab: {fileID: 3257594574180206535, guid: 4270104c6fdd251408ebb5dfec5f0638, type: 3}
-  endRoomPrefab: {fileID: 2257012153786745138, guid: 3a697a72eebeccb489229a152f9fa469, type: 3}
+  startRoomPrefab: {fileID: 24156781826764424, guid: 70f184a6faad2af44b7e0ac657589335, type: 3}
+  endRoomPrefab: {fileID: 7952450835879640040, guid: 753745980cab70345b168b3112f30274, type: 3}
   boss1RoomPrefab: {fileID: 2862006905552331423, guid: f24052b24f0a61d4fa3f7c1391d14e90, type: 3}
-  shopRoomPrefab: {fileID: 933352795763280445, guid: 67686a26094887641b76fc0071368cc1, type: 3}
+  shopRoomPrefab: {fileID: 8513993102708613262, guid: 82a8fc5577931ef4dade0559be450bfc, type: 3}
   intermediateRoomPrefabs:
   - {fileID: 5944570792003526229, guid: 7410aae7a9e0c4e40a36182910e93a20, type: 3}
   - {fileID: 8736672929275142943, guid: 298ca474cfb15d849ac1c085ff267602, type: 3}
@@ -6615,7 +6554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.024585318, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.41202068, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6864,7 +6803,6 @@ SceneRoots:
   - {fileID: 665163080}
   - {fileID: 1514812955}
   - {fileID: 220975091}
-  - {fileID: 922433272}
   - {fileID: 1058014088}
   - {fileID: 1559323932}
   - {fileID: 135954596}
