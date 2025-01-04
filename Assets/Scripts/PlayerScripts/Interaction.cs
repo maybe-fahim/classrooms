@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class Interaction : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class Interaction : MonoBehaviour
     [SerializeField]
     private GameObject inHandItem;
     private Vector3 originalScale;
+    private int homeworkCount = 0;
+    private int currency = 0;
 
     [SerializeField]
     private Hotbar hotbar;
@@ -43,6 +46,9 @@ public class Interaction : MonoBehaviour
     [SerializeField] Image[] inventorySlotImage = new Image[5];
     [SerializeField] Image[] inventorySlotBackground = new Image[5];
     [SerializeField] Sprite emptySlotSprite;
+    public TextMeshProUGUI homeworkPopup; // Reference to the TextMeshProUGUI element 
+
+    public TextMeshProUGUI PaperClipsText; // Reference to the TextMeshProUGUI component
 
     [SerializeField] GameObject throwItem_gameobject;
 
@@ -78,6 +84,14 @@ public class Interaction : MonoBehaviour
             else if (hit.collider.GetComponent<LeverDoor>())
             {
                 InteractWithLever();
+            }
+            else if (hit.collider.name.Contains("Homework"))
+            {
+                SecretHomework();
+            }
+            else if (hit.collider.name.Contains("Clip"))
+            {
+                CurrencyManager();
             }
         }
     }
@@ -117,17 +131,102 @@ public class Interaction : MonoBehaviour
             hotbar.inventoryList.Add(itemTypeToAdd);
             item.PickItem();
         }
-        else if (hit.collider.name == "Homework")
-        {
-            pickUpUI.SetActive(false);
-            Debug.Log("Picked up " + hit.collider.name);
-            Destroy(hit.collider.gameObject);
-        }
-        
-        
-        
     }
 
+    private void SecretHomework()
+    {
+    
+        Debug.Log("Picked up " + hit.collider.name);
+        pickUpUI.SetActive(false);
+        cursor.sprite = normal;
+        homeworkCount++;
+        
+
+        // Destroy the new flashlight being picked up since we don't add it to the inventory
+        Destroy(hit.collider.gameObject);
+
+        // Show the homework count in the UI
+        StartCoroutine(ShowHomeworkPopup());
+
+        return;
+        
+    }
+    
+    private void CurrencyManager()
+    {
+    Debug.Log("You picked up some clips!");
+    pickUpUI.SetActive(false);
+    cursor.sprite = normal;
+
+    // Check the parent of the hit object
+    Transform parent = hit.collider.transform.parent;
+    if (parent != null) // Ensure the object has a parent
+    {
+            // Check the tag of the parent object
+            if (parent.CompareTag("LargeClip"))
+            {
+                currency += 100; // Add 100 for a large clip
+                Debug.Log("Large clip picked up! Currency: " + currency);
+            }
+            else if (parent.CompareTag("MediumClip"))
+            {
+                currency += 50; // Add 50 for a medium clip
+                Debug.Log("Medium clip picked up! Currency: " + currency);
+            }
+            else if (parent.CompareTag("SmallClip"))
+            {
+                currency += 25; // Add 25 for a small clip
+                Debug.Log("Small clip picked up! Currency: " + currency);
+            }
+            else
+            {
+                Debug.Log("Parent does not have a recognized tag.");
+            }
+        }
+        else
+        {
+            Debug.Log("Hit object has no parent.");
+        }
+
+        // Update the TextMeshPro UI text
+        UpdatePaperClipsText();
+
+        // Destroy the parent object
+        Destroy(parent.gameObject);
+    }
+
+    private void UpdatePaperClipsText()
+    {
+        if (PaperClipsText != null)
+        {
+            PaperClipsText.text = $"Paper Clips: {currency}";
+        }
+        else
+        {
+            Debug.LogWarning("PaperClipsText is not assigned in the Inspector.");
+        }
+    }
+
+    private IEnumerator ShowHomeworkPopup()
+    {
+        if (homeworkCount > 9)
+        {
+            homeworkPopup.text = $"All the homework has been collected!";
+            homeworkPopup.gameObject.SetActive(true); // Enable the text
+            Debug.Log("Homework count: " + homeworkCount);
+            yield return new WaitForSeconds(10f); // Wait for 10 seconds
+            homeworkPopup.gameObject.SetActive(false); // Disable the text
+        }
+        else
+        {
+            homeworkPopup.text = $"Homework: {homeworkCount}/9";
+            homeworkPopup.gameObject.SetActive(true); // Enable the text
+            Debug.Log("Homework count: " + homeworkCount);
+            yield return new WaitForSeconds(4f); // Wait for 10 seconds
+            homeworkPopup.gameObject.SetActive(false); // Disable the text
+        }
+        
+    }
     private void InteractWithLever()
     {
         LeverDoor lever = hit.collider.GetComponent<LeverDoor>();
@@ -152,9 +251,6 @@ public class Interaction : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        
-
         // If an object was previously highlighted, remove the highlight
         if (hit.collider != null)
         {
@@ -228,9 +324,9 @@ public class Interaction : MonoBehaviour
         hit.collider.GetComponent<Highlight>()?.ToggleHighlight(true);
 
         // If the hit object is an item, show pickup UI
-        if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>() || hit.collider.name == "Homework")
+        if (hit.collider.GetComponent<ItemPickable>() || hit.collider.GetComponent<LeverDoor>()|| hit.collider.name.Contains("Homework")|| hit.collider.name.Contains("ClipPile"))
         {
-            if (hotbar.inventoryList.Count < 5)
+            if ((hotbar.inventoryList.Count < 5) || hit.collider.name.Contains("Homework")|| hit.collider.name.Contains("ClipPile"))
             {
                 pickUpUI.SetActive(true);
                 cursor.sprite = hand;
