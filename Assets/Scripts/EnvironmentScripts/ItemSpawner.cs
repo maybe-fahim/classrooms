@@ -18,6 +18,20 @@ public class ItemSpawner : MonoBehaviour
     [Header("Physics Settings")]
     public bool applyGravityOnSpawn = true; // Should the spawned item fall?
 
+    void Awake()
+    {
+        // Before Start(), try to find the DifficultyManager and override local spawn chance
+        var difficultyManager = FindObjectOfType<DifficultyManager>();
+        if (difficultyManager != null)
+        {
+            overallSpawnChance = difficultyManager.GetItemSpawnRate();
+        }
+        else
+        {
+            Debug.LogWarning("ItemSpawner: No DifficultyManager found. Using local inspector value for overallSpawnChance.");
+        }
+    }
+
     void Start()
     {
         TrySpawnItem();
@@ -56,7 +70,14 @@ public class ItemSpawner : MonoBehaviour
         GameObject spawnedItem = Instantiate(selectedItem.itemPrefab, transform.position, Quaternion.identity, transform);
 
         // Apply counter scale to negate parent's scaling
-        spawnedItem.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(1 / transform.lossyScale.x, 1 / transform.lossyScale.y, 1 / transform.lossyScale.z));
+        spawnedItem.transform.localScale = Vector3.Scale(
+            Vector3.one,
+            new Vector3(
+                1 / transform.lossyScale.x,
+                1 / transform.lossyScale.y,
+                1 / transform.lossyScale.z
+            )
+        );
 
         // Ensure the item falls naturally
         if (applyGravityOnSpawn && spawnedItem.TryGetComponent<Rigidbody>(out Rigidbody rb))

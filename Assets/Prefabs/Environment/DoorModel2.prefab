@@ -120,10 +120,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDoor: {fileID: 7517221077284868604}
+  targetObject: {fileID: 6193679177090333355}
   myHandle: {fileID: 5496943185143127894}
-  targetObject: {fileID: 8252971450354120639}
   doorAudioSource: {fileID: 4564464332201510011}
   doorOpenClip: {fileID: 8300000, guid: d51c7c03866ccbd4fad34a04d2fc37bc, type: 3}
+  lockedDoorClip: {fileID: 0}
+  extraTime: 60
+  isLocked: 0
+  requiredKey: lk
+  uiMessage: {fileID: 0}
+  messageDuration: 2
+  raycastDistance: 5
+  interactionKey: 101
 --- !u!82 &4564464332201510011
 AudioSource:
   m_ObjectHideFlags: 0

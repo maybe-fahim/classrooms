@@ -3535,8 +3535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDoor: {fileID: 5837526704210298900}
+  targetObject: {fileID: 4278635431075968776}
   myHandle: {fileID: 5124588996486788781}
-  targetObject: {fileID: 9148181565755199764}
   doorAudioSource: {fileID: 2643257308517532801}
   doorOpenClip: {fileID: 8300000, guid: d51c7c03866ccbd4fad34a04d2fc37bc, type: 3}
 --- !u!82 &2643257308517532801

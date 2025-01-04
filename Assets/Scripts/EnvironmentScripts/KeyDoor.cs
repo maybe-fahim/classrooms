@@ -126,10 +126,13 @@ public class KeyDoor : MonoBehaviour
             Debug.LogError("RoomCounter is not assigned.");
         }
 
-        if (timeKeeper != null)
-        {
-            timeKeeper.time = timeKeeper.time + 60; // Add 60 seconds to the timer
-        }
+        // -- commented out for now
+
+        //if (timeKeeper != null)
+        //{
+        //    timeKeeper.time = timeKeeper.time + 60; // Add 60 seconds to the timer
+        //}
+
 
         // Disable the MeshCollider on the target object
         if (targetObject != null)

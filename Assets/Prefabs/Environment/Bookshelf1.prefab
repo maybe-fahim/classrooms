@@ -1359,6 +1359,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7703919592684913628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5793586649618636768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4047011479995699195}
+  m_Layer: 0
+  m_Name: BookAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4047011479995699195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793586649618636768}
+  serializedVersion: 2
+  m_LocalRotation: {x: -8.881784e-15, y: -0.7071059, z: 0.000000030908584, w: 0.7071078}
+  m_LocalPosition: {x: 0.453, y: 1.294, z: 0.233}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7703919592684913628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6294112245223485894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,6 +1700,7 @@ Transform:
   - {fileID: 7579583474832653618}
   - {fileID: 9138169726213281613}
   - {fileID: 6440534444275225100}
+  - {fileID: 4047011479995699195}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.001, z: 0}
 --- !u!33 &1956675457024946866
