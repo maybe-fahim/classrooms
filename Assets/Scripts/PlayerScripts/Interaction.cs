@@ -227,6 +227,8 @@ public class Interaction : MonoBehaviour
         }
         
     }
+
+
     private void InteractWithLever()
     {
         LeverDoor lever = hit.collider.GetComponent<LeverDoor>();
@@ -328,8 +330,9 @@ public class Interaction : MonoBehaviour
         {
             if ((hotbar.inventoryList.Count < 5) || hit.collider.name.Contains("Homework")|| hit.collider.name.Contains("ClipPile"))
             {
-                pickUpUI.SetActive(true);
+                
                 cursor.sprite = hand;
+                pickUpUI.SetActive(true);
             }
             
         }

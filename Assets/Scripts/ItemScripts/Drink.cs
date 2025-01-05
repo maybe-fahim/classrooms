@@ -34,6 +34,11 @@ public class Drink : MonoBehaviour
     // Coroutine to handle drinking effect
     private IEnumerator DrinkEffect()
     {
+        if (hotbar != null)
+        {
+            hotbar.LockHotbarSlot();
+        }
+
         // Store the original values
         originalAcceleration = playerMovement.acceleration;
         originalFOV = camera.fieldOfView;
@@ -66,10 +71,6 @@ public class Drink : MonoBehaviour
             isDrinking = true;
 
             // Lock the player to the current hotbar slot
-            if (hotbar != null)
-            {
-                hotbar.LockHotbarSlot();
-            }
 
             // Start the boost effect
             StartCoroutine(DrinkEffect());
