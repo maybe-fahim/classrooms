@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Prefabs/Items/WaterV2.prefab.meta
 guid: 43d94643a2d0b464685feea8366d68dc
 PrefabImporter:
+========
+guid: 51f4e460685974e42aaf9a28c598e3c5
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> Stashed changes:Assets/External Assets/Keypad.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

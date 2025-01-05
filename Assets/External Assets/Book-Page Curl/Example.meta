@@ -1,3 +1,4 @@
+<<<<<<<< Updated upstream:Assets/External Assets/Book-Page Curl/Example.meta
 fileFormatVersion: 2
 guid: 2d638912c49c5314b82b4ea5d34ba179
 folderAsset: yes
@@ -7,3 +8,13 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+========
+fileFormatVersion: 2
+guid: 345e6f94b7c14864e9d84abbd7265405
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>>> Stashed changes:Assets/External Assets/Keypad/Animations.meta
