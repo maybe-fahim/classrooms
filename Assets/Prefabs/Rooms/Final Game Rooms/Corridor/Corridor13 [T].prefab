@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6310641421466903332}
+  - component: {fileID: -8586710992240085764}
   m_Layer: 0
   m_Name: 'Corridor13 [T]'
   m_TagString: Untagged
@@ -43,6 +44,20 @@ Transform:
   - {fileID: 3639558506756498088}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8586710992240085764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193358033157267719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c733a6e8f5d2af140a7e855192954e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntranceAnchor: {fileID: 5052909003679361227}
+  ExitAnchor: {fileID: 8171661954731623831}
 --- !u!1 &261289239072485990
 GameObject:
   m_ObjectHideFlags: 0

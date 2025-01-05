@@ -31415,6 +31415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5189321386693656183}
+  - component: {fileID: 8666479779685033488}
   m_Layer: 0
   m_Name: Corridor8
   m_TagString: Untagged
@@ -31448,6 +31449,20 @@ Transform:
   - {fileID: 5531108318864321593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &8666479779685033488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020806436196007894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c733a6e8f5d2af140a7e855192954e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntranceAnchor: {fileID: 7157731894291297823}
+  ExitAnchor: {fileID: 185382433821404329}
 --- !u!1 &4067744184282490779
 GameObject:
   m_ObjectHideFlags: 0

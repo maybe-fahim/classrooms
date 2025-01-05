@@ -8830,6 +8830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2706151948854031102}
+  - component: {fileID: 3504167597774911501}
   m_Layer: 0
   m_Name: Classroom8
   m_TagString: Untagged
@@ -8862,6 +8863,20 @@ Transform:
   - {fileID: 4693972508834344549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3504167597774911501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860399127874385518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c733a6e8f5d2af140a7e855192954e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntranceAnchor: {fileID: 2576238817072182912}
+  ExitAnchor: {fileID: 3057270193891501104}
 --- !u!1 &7123505998834034298
 GameObject:
   m_ObjectHideFlags: 0

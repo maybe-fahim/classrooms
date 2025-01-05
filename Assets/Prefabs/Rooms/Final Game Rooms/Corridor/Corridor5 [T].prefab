@@ -17703,6 +17703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7597392312783340057}
+  - component: {fileID: -4725417728100313451}
   m_Layer: 0
   m_Name: 'Corridor5 [T]'
   m_TagString: Untagged
@@ -17741,6 +17742,20 @@ Transform:
   - {fileID: 5933357421188866095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4725417728100313451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566719778979298553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c733a6e8f5d2af140a7e855192954e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntranceAnchor: {fileID: 8558959158018345925}
+  ExitAnchor: {fileID: 9023411110627914003}
 --- !u!1 &8590363448103175249
 GameObject:
   m_ObjectHideFlags: 0

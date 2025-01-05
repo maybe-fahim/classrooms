@@ -20,6 +20,8 @@ public class RoomGen : MonoBehaviour
     private int bossRoomPosition; // The calculated position of the Boss 1 Room
     private int totalIntermediateRoomsGenerated = 0; // Tracks all intermediate rooms, including initial ones
 
+    private List<Transform> rushPathAnchors = new List<Transform>();
+
     private void Start()
     {
         // Calculate the Boss 1 Room position (1-based index), accounting for odd/even cases
@@ -98,6 +100,7 @@ public class RoomGen : MonoBehaviour
         generatedRooms.Add(nextRoom);
 
         Transform entranceAnchor = nextRoom.transform.Find("EntranceAnchor");
+        Transform exitAnchor = nextRoom.transform.Find("ExitAnchor");
         if (entranceAnchor != null && lastExitAnchor != null)
         {
             Quaternion targetRotation = Quaternion.LookRotation(lastExitAnchor.forward, lastExitAnchor.up);
@@ -126,6 +129,9 @@ public class RoomGen : MonoBehaviour
         {
             Debug.LogWarning("EntranceAnchor or ExitAnchor not found on room prefab.");
         }
+
+        if (entranceAnchor != null) rushPathAnchors.Add(entranceAnchor);
+        if (exitAnchor != null) rushPathAnchors.Add(exitAnchor);
 
         totalIntermediateRoomsGenerated++; // Increment the intermediate room count
         currentRoomIndex++;
@@ -239,6 +245,11 @@ public class RoomGen : MonoBehaviour
         {
             Debug.LogWarning("EntranceAnchor not found on end room prefab.");
         }
+    }
+
+    public List<Transform> GetRushPathAnchors()
+    {
+        return new List<Transform>(rushPathAnchors); // Return a copy of the list
     }
 }
 
