@@ -11,6 +11,8 @@ TagManager:
   - LargeClip
   - MediumClip
   - SmallClip
+  - KeyPad
+  - Keypad
   layers:
   - Default
   - TransparentFX
