@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Sprites/BookPages.meta
 guid: 28d0de7666acf4d2883c31ae299e770d
+========
+guid: 51f4e460685974e42aaf9a28c598e3c5
+>>>>>>>> Stashed changes:Assets/External Assets/Keypad.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
