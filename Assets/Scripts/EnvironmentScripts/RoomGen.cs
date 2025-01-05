@@ -31,6 +31,13 @@ public class RoomGen : MonoBehaviour
         SpawnPlayer();
     }
 
+    public void SetNumberOfIntermediateRooms(int newCount)
+    {
+        numberOfIntermediateRooms = newCount;
+        // If you need to regenerate rooms dynamically, you could handle that here.
+        // But for now, it just updates the field before Start() runs or at runtime.
+    }
+
     private void GenerateInitialRooms()
     {
         if (randomSeed == 0)

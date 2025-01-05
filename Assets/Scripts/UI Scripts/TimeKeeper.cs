@@ -1,37 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeKeeper : MonoBehaviour
 {
-    public Image timerBar;
-    public float time = 120f;
+    [SerializeField] private Image timerBar;
 
-    // Start is called before the first frame update
-    void Start()
+    private float currentTime;
+    private float maxTime;
+
+    void Awake()
     {
-        
+        // If you also use DifficultyManager for startTime, maxTime:
+        DifficultyManager dm = FindObjectOfType<DifficultyManager>();
+        if (dm != null)
+        {
+            maxTime = dm.GetMaxTime();
+            currentTime = maxTime;
+        }
+        else
+        {
+            maxTime = 120f;
+            currentTime = maxTime;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (time > 120)
+        if (currentTime > 0f)
         {
-            time = 120;
-        } 
-        if (time > 0)
-        {
-            // Decrease the remaining time
-            time -= Time.deltaTime;
-            time = Mathf.Clamp(time, 0, 120);
-            timerBar.fillAmount = time / 120f;
-            // Check if time has run out
-            if (time <= 0)
+            currentTime -= Time.deltaTime;
+            currentTime = Mathf.Clamp(currentTime, 0f, maxTime);
+
+            if (timerBar != null)
             {
-                Debug.Log("You died");
+                timerBar.fillAmount = currentTime / maxTime;
             }
         }
+    }
+
+    // PUBLIC METHOD to add time
+    public void AddTime(float extra)
+    {
+        currentTime += extra;
+        currentTime = Mathf.Clamp(currentTime, 0f, maxTime);
+
+        Debug.Log($"TimeKeeper: Added {extra} seconds. Current time is now: {currentTime}");
     }
 }

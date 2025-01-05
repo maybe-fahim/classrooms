@@ -2,27 +2,46 @@ using UnityEngine;
 
 public class CeilingLightFlicker : MonoBehaviour
 {
-    public Light light1; // Reference to Light1
-    public Light light2; // Reference to Light2
-    public Renderer lightModelRenderer; // Reference to the LightModel Renderer
-    public string emissiveMaterialName = "(Mat)EmissiveWarm"; // Name of the emissive material
-    public float normalIntensity = 2f; // Normal light intensity
-    public float dimIntensity = 0.5f; // Dim light intensity during flicker
-    public float flickerDuration = 0.1f; // How long a single flicker lasts
-    public float timeBetweenFlickers = 2f; // Average time between flicker events
-    public bool randomizeTiming = true; // Randomize timing between flickers
+    public Light light1; 
+    public Light light2; 
+    public Renderer lightModelRenderer; 
+    public string emissiveMaterialName = "(Mat)EmissiveWarm"; 
+    public float normalIntensity = 2f; 
+    public float dimIntensity = 0.5f; 
+    public float flickerDuration = 0.1f; 
+    public float timeBetweenFlickers = 2f; 
+    public bool randomizeTiming = true; 
 
-    [Range(0f, 1f)] public float probabilityOn = 0.5f; // Probability for "On" state
-    [Range(0f, 1f)] public float probabilityFlicker = 0.3f; // Probability for "Flicker" state
-    [Range(0f, 1f)] public float probabilityOff = 0.2f; // Probability for "Off" state
+    [Range(0f, 1f)] public float probabilityOn = 0.5f;
+    [Range(0f, 1f)] public float probabilityFlicker = 0.3f;
+    [Range(0f, 1f)] public float probabilityOff = 0.2f;
 
     private Material emissiveMaterial;
     private enum LightState { On, Flicker, Off }
     private LightState currentState;
 
-    private float nextFlickerTime; // When the next flicker will start
+    private float nextFlickerTime; 
     private bool isFlickering = false;
-    private float flickerEndTime; // When the current flicker ends
+    private float flickerEndTime; 
+
+    // =============== ADDED / UPDATED ===============
+    // We do it in Awake() to grab manager's values before Start() runs.
+    void Awake()
+    {
+        // Attempt to find a DifficultyManager in the scene
+        DifficultyManager dm = FindObjectOfType<DifficultyManager>();
+        if (dm != null)
+        {
+            probabilityOn = dm.GetChanceLightOn();
+            probabilityFlicker = dm.GetChanceLightFlicker();
+            probabilityOff = dm.GetChanceLightOff();
+        }
+        else
+        {
+            Debug.LogWarning("CeilingLightFlicker: No DifficultyManager found in scene. Using local inspector values.");
+        }
+    }
+    // ===============================================
 
     void Start()
     {
@@ -35,12 +54,13 @@ public class CeilingLightFlicker : MonoBehaviour
         // Fetch the emissive material from the renderer
         emissiveMaterial = GetEmissiveMaterial();
 
-        NormalizeProbabilities(); // Ensure probabilities sum to 1
+        // **Now that probabilities are set**, normalize them
+        NormalizeProbabilities(); 
         currentState = GetRandomState(); // Randomly decide the initial state
 
+        // Randomize or schedule flicker timing
         if (randomizeTiming)
         {
-            // Randomize initial timing to ensure desynchronization
             nextFlickerTime = Time.time + Random.Range(0f, timeBetweenFlickers);
         }
         else
@@ -56,9 +76,10 @@ public class CeilingLightFlicker : MonoBehaviour
         }
         else if (currentState == LightState.Off)
         {
-            SetLightsIntensity(0f); // Turn off
+            SetLightsIntensity(0f); 
             SetEmissiveState(false);
         }
+        // If Flicker, we'll handle that in Update when the time triggers.
     }
 
     void Update()
@@ -71,7 +92,7 @@ public class CeilingLightFlicker : MonoBehaviour
         {
             if (Time.time >= nextFlickerTime)
             {
-                currentState = GetRandomState(); // Reevaluate the state randomly
+                currentState = GetRandomState(); // Re-evaluate random state
 
                 if (currentState == LightState.Flicker)
                 {
@@ -96,13 +117,13 @@ public class CeilingLightFlicker : MonoBehaviour
     {
         if (Time.time >= flickerEndTime)
         {
-            SetLightsIntensity(normalIntensity); // Return to normal
+            // Flicker done, return to normal
+            SetLightsIntensity(normalIntensity);
             SetEmissiveState(true);
             isFlickering = false;
         }
         else
         {
-            // Flicker between dim and bright states
             bool isBright = Random.value > 0.5f;
             SetLightsIntensity(isBright ? dimIntensity : normalIntensity);
             SetEmissiveState(isBright);
@@ -112,7 +133,7 @@ public class CeilingLightFlicker : MonoBehaviour
     private void StartFlickering()
     {
         isFlickering = true;
-        flickerEndTime = Time.time + flickerDuration; // Set how long the flicker lasts
+        flickerEndTime = Time.time + flickerDuration;
     }
 
     private void ScheduleNextFlicker()
@@ -158,7 +179,7 @@ public class CeilingLightFlicker : MonoBehaviour
 
     private LightState GetRandomState()
     {
-        float randomValue = Random.value; // Generate a random value between 0 and 1
+        float randomValue = Random.value; 
         if (randomValue < probabilityOn)
         {
             return LightState.On;
