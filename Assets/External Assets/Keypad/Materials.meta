@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/External Assets/Keypad/Materials.meta
 guid: d3122dfdd63bf33478399cd488ce7793
+========
+guid: 51f4e460685974e42aaf9a28c598e3c5
+>>>>>>>> Stashed changes:Assets/External Assets/Keypad.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
