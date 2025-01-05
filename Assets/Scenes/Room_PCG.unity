@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.063658446, g: 0.06707351, b: 0.0605392, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.063658744, g: 0.067073785, b: 0.06053935, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3732,8 +3732,6 @@ MonoBehaviour:
   - {fileID: 94460450}
   - {fileID: 1335651006}
   emptySlotSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  homeworkPopup: {fileID: 0}
-  PaperClipsText: {fileID: 0}
   throwItem_gameobject: {fileID: 2052146519}
 --- !u!143 &1058014081
 CharacterController:
