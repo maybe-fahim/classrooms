@@ -11,6 +11,8 @@ TagManager:
   - LargeClip
   - MediumClip
   - SmallClip
+  - Keypad
+  - PuzzleBook
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Pickable
   - PostProcessing
   - Player
-  - 
+  - Keypad
   - 
   - 
   - 

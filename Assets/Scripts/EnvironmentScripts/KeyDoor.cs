@@ -14,6 +14,7 @@ public class KeyDoor : MonoBehaviour
     [SerializeField] private float raycastDistance = 5f; // Distance for the raycast
     [SerializeField] private LayerMask doorLayer; // LayerMask to ensure only the door is hit
     [SerializeField] private InputActionReference interactionInput;
+    [SerializeField] private Camera playerCam; // Reference to the player's camera
     public GameObject noKeyUI;
     public GameObject useKeyUI;
     private bool playerHasKey = false;
@@ -38,6 +39,10 @@ public class KeyDoor : MonoBehaviour
         {
             Debug.LogError("TimeKeeper not found in the scene.");
         }
+        if (playerCam == null)
+        {
+            Debug.LogError("Player camera is not assigned. Please assign it in the Inspector.");
+        }
     }
 
     void Update()
@@ -48,7 +53,7 @@ public class KeyDoor : MonoBehaviour
             playerHasKey = key.activeSelf;
         }
          // Perform raycast
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Or use the player's camera direction
+        Ray ray = playerCam.ScreenPointToRay(Input.mousePosition); // Or use the player's camera direction
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, raycastDistance, doorLayer))
@@ -81,7 +86,7 @@ public class KeyDoor : MonoBehaviour
     private void Interact(InputAction.CallbackContext context)
     {
         // Perform raycast
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Or use the player's camera direction
+        Ray ray = playerCam.ScreenPointToRay(Input.mousePosition); // Or use the player's camera direction
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, raycastDistance, doorLayer))
