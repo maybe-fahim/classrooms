@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/External Assets/Keypad/Scenes/ExampleScene.meta
 guid: e6e31c9050b3aa341a7749a9bd1de9a2
+========
+guid: 345e6f94b7c14864e9d84abbd7265405
+>>>>>>>> Stashed changes:Assets/External Assets/Keypad/Animations.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
