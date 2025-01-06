@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class HealthManager : MonoBehaviour
         var difficultyManager = FindObjectOfType<DifficultyManager>();
         if (difficultyManager != null)
         {
-            // 2) Override local maxHP with the manager’s value
+            // 2) Override local maxHP with the managerï¿½s value
             maxHP = difficultyManager.GetPlayerMaxHP();
             Debug.Log("HealthManager: Overriding player max HP to " + maxHP);
 
@@ -96,5 +97,11 @@ public class HealthManager : MonoBehaviour
         {
             healthBar.fillAmount = healthAmount / maxHP;
         }
+    }
+
+    public void ReturnToMainMenuButton()
+    {
+        // Load the main menu scene
+        SceneManager.LoadScene("MainMenu");
     }
 }

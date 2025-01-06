@@ -3,45 +3,28 @@ using UnityEngine;
 public class DifficultyManager : MonoBehaviour
 {
     [Header("Time Settings")]
-    [Tooltip("Starting time for the level/game in seconds")]
-    [SerializeField] private float startTime = 300f; // Example default: 5 minutes
+    public float maxTime;
+    public float extraTimePerRoom;
 
-    [Tooltip("Maximum possible time in seconds (never exceed this)")]
-    [SerializeField] private float maxTime = 600f;   // Example default: 10 minutes
-
-    [Tooltip("Extra time added each time the player enters a new room")]
-    [SerializeField] private float extraTimePerRoom = 10f;
-
+    public float startTime;
 
     [Header("Player Settings")]
-    [Tooltip("Player's maximum HP")]
-    [SerializeField] private float playerMaxHP = 100f;
-
+    public float playerMaxHP;
 
     [Header("Item Spawn Settings")]
-    [Range(0f, 1f), Tooltip("Probability or rate at which items spawn")]
-    [SerializeField] private float itemSpawnRate = 0.2f;
-
+    public float itemSpawnRate;
 
     [Header("Light Settings")]
-    [Range(0f, 1f), Tooltip("Probability that a light is ON")]
-    [SerializeField] private float chanceLightOn = 0.6f;
-
-    [Range(0f, 1f), Tooltip("Probability that a light is FLICKERING")]
-    [SerializeField] private float chanceLightFlicker = 0.3f;
-
-    [Range(0f, 1f), Tooltip("Probability that a light is OFF")]
-    [SerializeField] private float chanceLightOff = 0.1f;
-
+    public float chanceLightOn;
+    public float chanceLightFlicker;
+    public float chanceLightOff;
 
     [Header("Enemy Camera Settings")]
-    [Range(0f, 1f), Tooltip("Probability or rate at which enemy cameras are spawned")]
-    [SerializeField] private float enemyCameraSpawnRate = 0.15f;
-
+    public float enemyCameraSpawnRate;
 
     [Header("Room Generation Settings")]
-    [Tooltip("Number of intermediate rooms generated in the level")]
-    [SerializeField] private int numberOfIntermediateRooms = 3;
+    public int numberOfIntermediateRooms;
+
 
     // ====================================
     // 2. A REFERENCE TO YOUR RoomGen SCRIPT
@@ -67,16 +50,84 @@ public class DifficultyManager : MonoBehaviour
 
     private void Start()
     {
-        // Just an example of setting the number of intermediate rooms
-        // at the start, based on our serialized field:
+        // Load the difficulty from PlayerPrefs and set values
+        int difficulty = PlayerPrefs.GetInt("Difficulty", 0); // Default to Easy
+
+        switch (difficulty)
+        {
+            case 0: // Easy
+                SetEasyDifficulty();
+                break;
+            case 1: // Medium
+                SetMediumDifficulty();
+                break;
+            case 2: // Hard
+                SetHardDifficulty();
+                break;
+            default:
+                Debug.LogWarning("Unknown difficulty level! Defaulting to Easy.");
+                SetEasyDifficulty();
+                break;
+        }
+
+        // Apply room settings
+        ApplyRoomSettings();
+    }
+
+    private void SetEasyDifficulty()
+    {
+        maxTime = 300f;
+        extraTimePerRoom = 60f;
+        playerMaxHP = 150f;
+        itemSpawnRate = 0.8f;
+        chanceLightOn = 0.7f;
+        chanceLightFlicker = 0.3f;
+        chanceLightOff = 0f;
+        enemyCameraSpawnRate = 0.2f;
+        numberOfIntermediateRooms = 100;
+
+        Debug.Log("Easy difficulty applied.");
+    }
+
+    private void SetMediumDifficulty()
+    {
+        maxTime = 200f;
+        extraTimePerRoom = 40f;
+        playerMaxHP = 100f;
+        itemSpawnRate = 0.6f;
+        chanceLightOn = 0.2f;
+        chanceLightFlicker = 0.6f;
+        chanceLightOff = 0.2f;
+        enemyCameraSpawnRate = 0.4f;
+        numberOfIntermediateRooms = 100;
+
+        Debug.Log("Medium difficulty applied.");
+    }
+
+    private void SetHardDifficulty()
+    {
+        maxTime = 180f;
+        extraTimePerRoom = 30f;
+        playerMaxHP = 80f;
+        itemSpawnRate = 0.5f;
+        chanceLightOn = 0f;
+        chanceLightFlicker = 0.6f;
+        chanceLightOff = 0.4f;
+        enemyCameraSpawnRate = 0.6f;
+        numberOfIntermediateRooms = 120;
+
+        Debug.Log("Hard difficulty applied.");
+    }
+
+    private void ApplyRoomSettings()
+    {
         if (roomGen != null)
         {
-            // We’ll call a method in RoomGen that sets the number
             roomGen.SetNumberOfIntermediateRooms(numberOfIntermediateRooms);
         }
         else
         {
-            Debug.LogWarning("No RoomGen reference assigned in DifficultyManager.");
+            Debug.LogWarning("RoomGen reference not set in DifficultyManager.");
         }
     }
 }
