@@ -36,7 +36,8 @@ Select your difficulty at the main menu.
 ## README for final submission
 
 ## Git LFS
-We have made use of Git LFS as our build file is over 100MB.
+- We have made use of Git LFS as our build file is over 100MB.
+- The WebGL build loading bar seems to get stuck at 90%, this is because of Git LFS, we have tried some work arounds such as compression and chunking files but nothing seems to work for GitHub pages and WebGL. Our game is playable through download.
 
 ## External Assets:
 Airducts: https://assetstore.unity.com/packages/tools/level-design/airduct-bmt-227804
