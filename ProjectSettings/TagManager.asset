@@ -14,6 +14,7 @@ TagManager:
   - KeyPad
   - Keypad
   - PuzzleBook
+  - Shop
   layers:
   - Default
   - TransparentFX
