@@ -12,6 +12,8 @@ public class RoomGen : MonoBehaviour
     public int numberOfIntermediateRooms = 5;
     public int randomSeed = 0; // Default seed is 0, meaning it will be randomized
 
+    public GameObject homeworkPrefab; // Prefab for the homework item
+
     private List<GameObject> generatedRooms = new List<GameObject>();
     private int currentRoomIndex = 0; // Tracks currently generated room index
     private int lastTurnRoomIndex = -4; // Ensure the first turn room can be generated
@@ -132,6 +134,21 @@ public class RoomGen : MonoBehaviour
         else
         {
             Debug.LogWarning("EntranceAnchor or ExitAnchor not found on room prefab.");
+        }
+
+        // Check if the room index ends with 5 and spawn the homework item
+        if (currentRoomIndex % 10 == 5)
+        {
+            Transform homeworkAnchor = nextRoom.transform.Find("HomeworkAnchor");
+            if (homeworkAnchor != null && homeworkPrefab != null)
+            {
+                Instantiate(homeworkPrefab, homeworkAnchor.position, homeworkAnchor.rotation, homeworkAnchor);
+                Debug.Log($"Homework spawned in room index {currentRoomIndex}.");
+            }
+            else
+            {
+                Debug.LogWarning($"HomeworkAnchor not found or HomeworkPrefab is null in room index {currentRoomIndex}.");
+            }
         }
 
         totalIntermediateRoomsGenerated++; // Increment the intermediate room count
