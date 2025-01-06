@@ -31953,52 +31953,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 515519939618417854, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1058672199539023435}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
 --- !u!4 &4790307489844848636 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3561912953934172006, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
   m_PrefabInstance: {fileID: 8292503217418512538}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8230158764893835260 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 82057064009115494, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-  m_PrefabInstance: {fileID: 8292503217418512538}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8373208870538282020 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 515519939618417854, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-  m_PrefabInstance: {fileID: 8292503217418512538}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1058672199539023435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8373208870538282020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0108b524b9724fa4ae71ca6aeb61ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  raycastDistance: 5
-  doorLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  interactionInput: {fileID: 5826596053705295628, guid: 9dcd0817fdfa148769b562ab4913e690, type: 3}
-  key: {fileID: 800980529347377608, guid: bd467b727835a49059501c42b077b2f4, type: 3}
-  targetObject: {fileID: 8373208870538282020}
-  playerCam: {fileID: 8436883888258664750, guid: df190b6db07a74e4aa8fb4eb66f8069f, type: 3}
-  noKeyUI: {fileID: 1719676296043807185, guid: f0bcc5167f9784eb59e3612a51e7d10c, type: 3}
-  useKeyUI: {fileID: 1065089310584448981, guid: 643c6578d83aa453bbfd4b23ec905c7d, type: 3}
-  isLocked: 0
-  trigger: {fileID: 8230158764893835260}
-  keys: {fileID: 7408456352394834648}
-  lockedChance: 0.5
 --- !u!1001 &8336672954982632067
 PrefabInstance:
   m_ObjectHideFlags: 0

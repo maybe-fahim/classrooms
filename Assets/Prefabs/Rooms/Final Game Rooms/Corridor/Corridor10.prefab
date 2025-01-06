@@ -53363,11 +53363,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3445352999058701222, guid: 05e314c9e067138498f7c1e1f6aca83d, type: 3}
   m_PrefabInstance: {fileID: 1218552572199657898}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4555797120105388787 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3445352999058701145, guid: 05e314c9e067138498f7c1e1f6aca83d, type: 3}
-  m_PrefabInstance: {fileID: 1218552572199657898}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1235172669845740401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57196,50 +57191,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 515519939618417854, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8149291013539468729}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
 --- !u!4 &1528901539804075176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3561912953934172006, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-  m_PrefabInstance: {fileID: 2619348048878902222}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2557681248996439920 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 515519939618417854, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
-  m_PrefabInstance: {fileID: 2619348048878902222}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8149291013539468729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557681248996439920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0108b524b9724fa4ae71ca6aeb61ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  raycastDistance: 5
-  doorLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  interactionInput: {fileID: 5826596053705295628, guid: 9dcd0817fdfa148769b562ab4913e690, type: 3}
-  key: {fileID: 4555797120105388787}
-  targetObject: {fileID: 2557681248996439920}
-  playerCam: {fileID: 8436883888258664750, guid: df190b6db07a74e4aa8fb4eb66f8069f, type: 3}
-  noKeyUI: {fileID: 1719676296043807185, guid: f0bcc5167f9784eb59e3612a51e7d10c, type: 3}
-  useKeyUI: {fileID: 1065089310584448981, guid: 643c6578d83aa453bbfd4b23ec905c7d, type: 3}
-  isLocked: 0
-  trigger: {fileID: 2700555980522470568}
-  keys: {fileID: 5720654144449162615}
-  lockedChance: 0.5
---- !u!1 &2700555980522470568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 82057064009115494, guid: 4bcebca519a754673a4953cf62438c74, type: 3}
   m_PrefabInstance: {fileID: 2619348048878902222}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2638638202329279725
