@@ -38,6 +38,10 @@ Select your difficulty at the main menu.
 ## Git LFS
 - We have made use of Git LFS as our build file is over 100MB.
 - The WebGL build loading bar seems to get stuck at 90%, this is because of Git LFS, we have tried some work arounds such as compression and chunking files but nothing seems to work for GitHub pages and WebGL. Our game is playable through download.
+- A workaround for the GitHub pages not working is itch.io, here is the link: https://maybefahim.itch.io/classrooms
+
+### itch.io link
+https://maybefahim.itch.io/classrooms
 
 ## External Assets:
 Airducts: https://assetstore.unity.com/packages/tools/level-design/airduct-bmt-227804
