@@ -9,6 +9,7 @@ public class MainMenuLogic : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject howToPlayMenu;
     public GameObject loading;
+    public GameObject DifficultyMenu;
 
     public AudioSource buttonSound;
 
@@ -24,10 +25,11 @@ public class MainMenuLogic : MonoBehaviour
 
     public void StartButton()
     {
-        loading.GetComponent<Canvas>().enabled = true;
+        
         mainMenu.GetComponent<Canvas>().enabled = false;
+        DifficultyMenu.GetComponent<Canvas>().enabled = true;
         buttonSound.Play();
-        SceneManager.LoadScene("Room_PCG");
+        
     }
 
     public void SettingsButton()
@@ -58,11 +60,30 @@ public class MainMenuLogic : MonoBehaviour
         settingsMenu.GetComponent<Canvas>().enabled = false;
         howToPlayMenu.GetComponent<Canvas>().enabled = false;
     }
-
-
-
-    void Update()
+    public void SetEasyDifficulty()
     {
-        
+        PlayerPrefs.SetInt("Difficulty", 0); // 0 = Easy
+        PlayerPrefs.Save();
+        Debug.Log("Easy difficulty selected.");
+        loading.GetComponent<Canvas>().enabled = true;
+        SceneManager.LoadScene("Room_PCG");
+    }
+
+    public void SetMediumDifficulty()
+    {
+        PlayerPrefs.SetInt("Difficulty", 1); // 1 = Medium
+        PlayerPrefs.Save();
+        Debug.Log("Medium difficulty selected.");
+        loading.GetComponent<Canvas>().enabled = true;
+        SceneManager.LoadScene("Room_PCG");
+    }
+
+    public void SetHardDifficulty()
+    {
+        PlayerPrefs.SetInt("Difficulty", 2); // 2 = Hard
+        PlayerPrefs.Save();
+        Debug.Log("Hard difficulty selected.");
+        loading.GetComponent<Canvas>().enabled = true;
+        SceneManager.LoadScene("Room_PCG");
     }
 }
