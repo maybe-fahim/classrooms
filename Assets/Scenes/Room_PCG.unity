@@ -498,9 +498,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 496280790586122000, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1718782281}
+    - target: {fileID: 496280790586122000, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseBookUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 594573909083632595, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1718782281}
+    - target: {fileID: 594573909083632595, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseBookUI
+      objectReference: {fileID: 0}
     - target: {fileID: 1617785696709267242, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758965941701309100, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1718782281}
+    - target: {fileID: 1758965941701309100, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseBookUI
       objectReference: {fileID: 0}
     - target: {fileID: 4846570916471649007, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
       propertyPath: m_Pivot.x
@@ -582,9 +606,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4911912986305070783, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1718782281}
+    - target: {fileID: 4911912986305070783, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseBookUI
+      objectReference: {fileID: 0}
     - target: {fileID: 6390578116339092094, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523224667333730798, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1718782281}
+    - target: {fileID: 6523224667333730798, guid: 093f5f110cd7d498c99818cec7ba4b53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseBookUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -890,10 +930,10 @@ MonoBehaviour:
   maxTime: 60
   extraTimePerRoom: 20
   playerMaxHP: 50
-  itemSpawnRate: 0
-  chanceLightOn: 0
-  chanceLightFlicker: 0.2
-  chanceLightOff: 0.8
+  itemSpawnRate: 0.539
+  chanceLightOn: 0.4
+  chanceLightFlicker: 0.5
+  chanceLightOff: 0.1
   enemyCameraSpawnRate: 0.442
   numberOfIntermediateRooms: 10
   roomGen: {fileID: 1559323931}
@@ -1244,7 +1284,6 @@ MonoBehaviour:
   - {fileID: 8736672929275142943, guid: 298ca474cfb15d849ac1c085ff267602, type: 3}
   - {fileID: 6208863965766943780, guid: 463944c67b9d2e84397f921bb5d36e1e, type: 3}
   - {fileID: 6228399644814595598, guid: 89cec8115240bd240987637e2f8d5956, type: 3}
-  - {fileID: 4020806436196007894, guid: 060b34df4dae87548bb52766b85ff6f6, type: 3}
   - {fileID: 3188742332626441920, guid: 97ecdc5c7e78ee2428f6a23565368f93, type: 3}
   - {fileID: 1518826350739361565, guid: cb25c5901c63eb34cb880019c1700cdc, type: 3}
   - {fileID: 875554803788193420, guid: f3377fadf9c2bdb4ba7c27c914e9a356, type: 3}
