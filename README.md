@@ -64,13 +64,13 @@ Lightning video: https://www.vecteezy.com/video/47186495-rain-fell-with-lightnin
 Door opening sound: https://freesound.org/people/pagancow/sounds/15419/
 
 ## Self-made Assets:
-Blender components: class chair, paperclip, clock, coffee mug, conical flask (unused), locker, student table, teacher table, teachers chair, whiteboard
-Whiteboard drawings (more than 20 of them)
-Probuilder created assets: wooden room door, tall cupboard, low cupboard
-Room prefabs are all created by us
-Door animation
-CCTV camera model and behaviour
-Library boss model and behaviour
-Some materials
-Smoke fog particle system
+- Blender components: class chair, paperclip, clock, coffee mug, conical flask (unused), locker, student table, teacher table, teachers chair, whiteboard
+- Whiteboard drawings (more than 20 of them)
+- Probuilder created assets: wooden room door, tall cupboard, low cupboard
+- Room prefabs are all created by us
+- Door animation
+- CCTV camera model and behaviour
+- Library boss model and behaviour
+- Some materials
+- Smoke fog particle system
 
